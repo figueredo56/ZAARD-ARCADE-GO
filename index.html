@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ZAARD BATTLE - Batalla Extrema, Disparos Continuos & Recompensas ZARD</title>
+    <title>ZAARD GO - Chico Fénix en Llamas, 1.000 Monedas & Recompensas ZARD</title>
     <style>
         :root {
-            --bg-dark: #05020d;
-            --card-bg: rgba(18, 8, 40, 0.94);
+            --bg-dark: #06030d;
+            --card-bg: rgba(20, 10, 42, 0.93);
             --neon-purple: #c084fc;
+            --deep-purple: #6d28d9;
             --neon-cyan: #22d3ee;
             --neon-pink: #f472b6;
             --neon-green: #34d399;
@@ -26,9 +27,9 @@
         }
 
         body {
-            background: radial-gradient(circle at 50% 0%, rgba(34, 211, 238, 0.30), transparent 55%),
-                        radial-gradient(circle at 85% 25%, rgba(168, 85, 247, 0.28), transparent 55%),
-                        linear-gradient(180deg, #070318 0%, #030109 100%);
+            background: radial-gradient(circle at 50% 0%, rgba(168, 85, 247, 0.34), transparent 55%),
+                        radial-gradient(circle at 85% 25%, rgba(255, 107, 26, 0.26), transparent 55%),
+                        linear-gradient(180deg, #0b0422 0%, #05020e 100%);
             color: #ffffff;
             min-height: 100vh;
             display: flex;
@@ -39,27 +40,27 @@
         }
 
         body.aura-0 {
-            background: radial-gradient(circle at 20% 15%, rgba(168, 85, 247, 0.36), transparent 55%),
-                        radial-gradient(circle at 80% 30%, rgba(34, 211, 238, 0.28), transparent 55%),
-                        linear-gradient(180deg, #0b0424 0%, #04020d 100%);
+            background: radial-gradient(circle at 20% 15%, rgba(168, 85, 247, 0.38), transparent 55%),
+                        radial-gradient(circle at 80% 30%, rgba(255, 107, 26, 0.28), transparent 55%),
+                        linear-gradient(180deg, #0d0426 0%, #05020e 100%);
         }
         body.aura-1 {
             background: radial-gradient(circle at 75% 15%, rgba(34, 211, 238, 0.36), transparent 55%),
-                        radial-gradient(circle at 25% 35%, rgba(59, 130, 246, 0.32), transparent 55%),
-                        linear-gradient(180deg, #05132b 0%, #030714 100%);
+                        radial-gradient(circle at 25% 35%, rgba(139, 92, 246, 0.34), transparent 55%),
+                        linear-gradient(180deg, #06142e 0%, #040717 100%);
         }
         body.aura-2 {
-            background: radial-gradient(circle at 30% 20%, rgba(16, 185, 129, 0.30), transparent 55%),
-                        radial-gradient(circle at 80% 25%, rgba(255, 107, 26, 0.26), transparent 55%),
-                        linear-gradient(180deg, #051b1a 0%, #020b0c 100%);
+            background: radial-gradient(circle at 30% 20%, rgba(16, 185, 129, 0.32), transparent 55%),
+                        radial-gradient(circle at 80% 25%, rgba(168, 85, 247, 0.30), transparent 55%),
+                        linear-gradient(180deg, #061d1c 0%, #030c0d 100%);
         }
         body.aura-3 {
-            background: radial-gradient(circle at 65% 15%, rgba(255, 107, 26, 0.32), transparent 55%),
-                        radial-gradient(circle at 20% 30%, rgba(244, 114, 182, 0.28), transparent 55%),
-                        linear-gradient(180deg, #1d0720 0%, #08020b 100%);
+            background: radial-gradient(circle at 65% 15%, rgba(255, 107, 26, 0.35), transparent 55%),
+                        radial-gradient(circle at 20% 30%, rgba(192, 132, 252, 0.32), transparent 55%),
+                        linear-gradient(180deg, #210724 0%, #09020c 100%);
         }
 
-        /* Rayos y chispas en toda la pantalla */
+        /* Rayos y chispas eléctricas */
         .electric-sparks-layer {
             position: fixed;
             inset: 0;
@@ -72,16 +73,17 @@
             position: absolute;
             width: 3px;
             height: 88px;
-            background: linear-gradient(180deg, transparent, var(--neon-cyan), #ffffff, var(--phoenix-orange), transparent);
+            background: linear-gradient(180deg, transparent, var(--neon-cyan), #ffffff, var(--phoenix-orange), var(--neon-purple), transparent);
             filter: drop-shadow(0 0 8px var(--neon-cyan)) drop-shadow(0 0 18px var(--phoenix-orange));
             opacity: 0;
+            transform: rotate(24deg);
             animation: lightningStrike 3s infinite ease-in-out;
         }
 
-        .spark-bolt.b1 { top: 7%; left: 8%; transform: rotate(22deg); animation-delay: 0s; }
-        .spark-bolt.b2 { top: 18%; right: 10%; height: 98px; transform: rotate(-26deg); animation-delay: 0.9s; }
-        .spark-bolt.b3 { bottom: 18%; left: 13%; height: 80px; transform: rotate(18deg); animation-delay: 1.8s; }
-        .spark-bolt.b4 { bottom: 12%; right: 15%; height: 86px; transform: rotate(-22deg); animation-delay: 1.35s; }
+        .spark-bolt.b1 { top: 7%; left: 8%; animation-delay: 0s; }
+        .spark-bolt.b2 { top: 18%; right: 10%; height: 98px; transform: rotate(-28deg); animation-delay: 0.95s; }
+        .spark-bolt.b3 { bottom: 18%; left: 13%; height: 80px; transform: rotate(18deg); animation-delay: 1.9s; }
+        .spark-bolt.b4 { bottom: 12%; right: 15%; height: 86px; transform: rotate(-22deg); animation-delay: 1.45s; }
 
         @keyframes lightningStrike {
             0%, 78%, 100% { opacity: 0; transform: scale(0.85) rotate(22deg); }
@@ -207,32 +209,52 @@
 
         .hidden { display: none !important; }
 
+        /* BIENVENIDA CON MÁS VIDA */
         #screenWelcome {
             justify-content: center;
             min-height: calc(100vh - 76px);
         }
 
         .welcome-card-box {
-            background: linear-gradient(165deg, rgba(24, 10, 52, 0.95), rgba(9, 4, 22, 0.98));
+            background: linear-gradient(165deg, rgba(28, 11, 58, 0.95), rgba(11, 4, 26, 0.98));
             border: 2px solid var(--neon-cyan);
             border-radius: 24px;
             padding: 38px 34px;
             max-width: 960px;
             width: 100%;
-            box-shadow: 0 0 60px rgba(168, 85, 247, 0.72), 0 0 36px rgba(34, 211, 238, 0.35), inset 0 0 30px rgba(34, 211, 238, 0.16);
+            box-shadow: 0 0 60px rgba(168, 85, 247, 0.72), 0 0 36px rgba(255, 107, 26, 0.4), inset 0 0 30px rgba(34, 211, 238, 0.18);
             backdrop-filter: blur(10px);
             position: relative;
             overflow: hidden;
         }
 
         .welcome-card-box::before {
-            content: '🚀⚡🛸';
+            content: '🔥⚡🚀';
             position: absolute;
             top: 16px;
             right: 22px;
             font-size: 1.55rem;
-            filter: drop-shadow(0 0 12px var(--neon-cyan));
+            filter: drop-shadow(0 0 12px var(--phoenix-orange));
             animation: sparkPop 1.4s infinite alternate;
+        }
+
+        .welcome-pulse-ribbon {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 14px;
+        }
+
+        .pulse-chip {
+            background: rgba(124, 58, 237, 0.25);
+            border: 1px solid var(--neon-purple);
+            color: #f3e8ff;
+            padding: 5px 12px;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            box-shadow: 0 0 14px rgba(192, 132, 252, 0.35);
         }
 
         .floating-logo-container {
@@ -241,23 +263,23 @@
         }
 
         .floating-logo {
-            width: 120px;
-            height: 120px;
+            width: 122px;
+            height: 122px;
             border-radius: 50%;
-            border: 3px solid var(--neon-cyan);
+            border: 3px solid var(--phoenix-orange);
             object-fit: cover;
             animation: floatGlow 2.8s ease-in-out infinite;
         }
 
         @keyframes floatGlow {
             0% { transform: translateY(0px) scale(1); box-shadow: 0 0 22px var(--neon-cyan); }
-            50% { transform: translateY(-9px) scale(1.03); box-shadow: 0 0 40px var(--neon-purple), 0 0 24px var(--neon-cyan); }
+            50% { transform: translateY(-9px) scale(1.03); box-shadow: 0 0 40px var(--phoenix-orange), 0 0 24px var(--neon-purple); }
             100% { transform: translateY(0px) scale(1); box-shadow: 0 0 22px var(--neon-cyan); }
         }
 
         .welcome-card-box h1 {
-            font-size: clamp(1.8rem, 3.3vw, 2.55rem);
-            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple), var(--phoenix-orange), var(--neon-pink));
+            font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+            background: linear-gradient(90deg, var(--neon-cyan), var(--phoenix-orange), var(--neon-purple), var(--neon-pink));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 12px;
@@ -289,15 +311,15 @@
         .btn-action {
             display: block;
             width: 100%;
-            background: linear-gradient(135deg, #06b6d4, #9333ea, #ea580c);
+            background: linear-gradient(135deg, #ea580c, #9333ea, #22d3ee);
             color: #fff;
             border: none;
-            padding: 15px 20px;
-            font-size: 1.08rem;
+            padding: 14px 20px;
+            font-size: 1.06rem;
             font-weight: 900;
             border-radius: 14px;
             cursor: pointer;
-            box-shadow: 0 0 28px rgba(34, 211, 238, 0.6), 0 0 22px rgba(147, 51, 234, 0.6);
+            box-shadow: 0 0 28px rgba(34, 211, 238, 0.6), 0 0 22px rgba(234, 88, 12, 0.6);
             transition: 0.22s;
             text-align: center;
             line-height: 1.35;
@@ -306,6 +328,10 @@
         .btn-action:hover {
             transform: translateY(-2px);
             box-shadow: 0 0 40px rgba(34, 211, 238, 0.9);
+        }
+
+        .btn-action:active {
+            transform: scale(0.98);
         }
 
         .loading-box { text-align: center; padding: 60px 20px; }
@@ -394,12 +420,18 @@
             margin-bottom: 12px;
             border-radius: 12px;
             font-weight: 900;
-            font-size: 0.88rem;
+            font-size: 0.9rem;
             letter-spacing: 0.4px;
-            background: linear-gradient(90deg, rgba(239, 68, 68, 0.22), rgba(147, 51, 234, 0.25), rgba(34, 211, 238, 0.22));
-            border: 1.5px solid var(--neon-red);
-            color: #fecdd3;
-            box-shadow: 0 0 18px rgba(251, 113, 133, 0.32);
+            background: linear-gradient(90deg, rgba(16, 185, 129, 0.22), rgba(34, 211, 238, 0.22), rgba(255, 107, 26, 0.22));
+            border: 1.5px solid var(--neon-green);
+            color: #a7f3d0;
+            box-shadow: 0 0 18px rgba(52, 211, 153, 0.32);
+        }
+
+        .live-status-banner.paused {
+            border-color: var(--phoenix-orange);
+            color: #fed7aa;
+            background: rgba(234, 88, 12, 0.2);
         }
 
         .stats-bar {
@@ -429,18 +461,18 @@
             text-shadow: 0 0 10px rgba(34, 211, 238, 0.55);
         }
 
-        .battle-stage {
+        .runner-stage {
             position: relative;
             width: 100%;
-            max-width: 680px;
-            margin: 0 auto 14px auto;
-            border-radius: 20px;
+            min-height: 430px;
+            border-radius: 18px;
             overflow: hidden;
             border: 2px solid var(--neon-cyan);
-            box-shadow: 0 0 42px rgba(34, 211, 238, 0.42), 0 0 28px rgba(168, 85, 247, 0.38);
-            background: #050212;
-            cursor: ew-resize;
-            touch-action: none;
+            box-shadow: 0 0 38px rgba(34, 211, 238, 0.38), 0 0 26px rgba(168, 85, 247, 0.38);
+            background: #0d0724;
+            cursor: pointer;
+            margin-bottom: 14px;
+            touch-action: manipulation;
         }
 
         .stage-fx-layer {
@@ -454,16 +486,16 @@
         .stage-bolt {
             position: absolute;
             width: 2.5px;
-            height: 76px;
+            height: 70px;
             background: linear-gradient(180deg, transparent, #ffffff, var(--neon-cyan), var(--phoenix-orange), transparent);
             filter: drop-shadow(0 0 8px #22d3ee) drop-shadow(0 0 14px #ff6b1a);
             opacity: 0;
-            animation: stageLightning 2.5s infinite ease-in-out;
+            animation: stageLightning 2.6s infinite ease-in-out;
         }
 
-        .stage-bolt.sb1 { top: 8%; left: 16%; transform: rotate(18deg); animation-delay: 0s; }
-        .stage-bolt.sb2 { top: 16%; right: 18%; transform: rotate(-20deg); animation-delay: 0.8s; }
-        .stage-bolt.sb3 { top: 32%; left: 54%; height: 64px; transform: rotate(12deg); animation-delay: 1.6s; }
+        .stage-bolt.sb1 { top: 6%; left: 18%; transform: rotate(22deg); animation-delay: 0s; }
+        .stage-bolt.sb2 { top: 12%; right: 20%; transform: rotate(-25deg); animation-delay: 0.85s; }
+        .stage-bolt.sb3 { top: 24%; left: 52%; height: 58px; transform: rotate(15deg); animation-delay: 1.7s; }
 
         @keyframes stageLightning {
             0%, 80%, 100% { opacity: 0; }
@@ -478,7 +510,7 @@
             height: 5px;
             border-radius: 50%;
             background: #fff;
-            box-shadow: 0 0 8px #fbbf24, 0 0 16px #22d3ee, 0 0 22px #c084fc;
+            box-shadow: 0 0 8px #fbbf24, 0 0 16px #ff6b1a, 0 0 22px #c084fc;
             animation: sparkPop 1.4s infinite alternate;
         }
 
@@ -489,18 +521,21 @@
         canvas {
             display: block;
             width: 100%;
-            height: 540px;
+            height: 440px;
         }
 
         @media (min-width: 900px) {
             canvas {
-                height: 600px;
+                height: 510px;
             }
         }
 
         @media (max-width: 560px) {
             canvas {
-                height: 460px;
+                height: 365px;
+            }
+            .runner-stage {
+                min-height: 365px;
             }
         }
 
@@ -692,7 +727,7 @@
     <div class="navbar">
         <div class="logo-area">
             <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1790285851823-4955b8f5511ea8235af22dfb82371c91.png" alt="Logo">
-            <span>ZAARD BATTLE</span>
+            <span>ZAARD GO PHOENIX</span>
         </div>
         <div class="nav-controls">
             <div class="lang-badge">⚡ 0.0001 BNB ➔ 0.001 ZARD</div>
@@ -704,23 +739,29 @@
     <!-- Pantalla 1: Bienvenida -->
     <div id="screenWelcome" class="screen">
         <div class="welcome-card-box">
-            <div class="floating-logo-container">
-                <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1790285851823-4955b8f5511ea8235af22dfb82371c91.png" alt="Logo ZAARD BATTLE" class="floating-logo">
+            <div class="welcome-pulse-ribbon">
+                <span class="pulse-chip">🔥 CHICO FÉNIX EN LLAMAS</span>
+                <span class="pulse-chip">❤️ 6 INTENTOS</span>
+                <span class="pulse-chip">🪙 META 1.000 MONEDAS</span>
+                <span class="pulse-chip">🏦 VAULT 0x327f...C1A8</span>
             </div>
-            <h1>🚀⚡ ZAARD BATTLE — BATALLA EXTREMA & DISPAROS CONTINUOS ⚡🚀</h1>
+            <div class="floating-logo-container">
+                <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1790285851823-4955b8f5511ea8235af22dfb82371c91.png" alt="Logo ZAARD GO" class="floating-logo">
+            </div>
+            <h1>🔥⚡ ZAARD GO — CHICO FÉNIX & 1.000 MONEDAS ⚡🔥</h1>
             <p class="welcome-desc">
-                Los enemigos bajan desde arriba disparando cada segundo y aumentando en número y velocidad. Tu <strong>Nave ZAARD</strong> suelta <strong>disparos continuos</strong>: un choque o un disparo enemigo te mata en el intento, ¡esquiva y sobrevive hasta las <strong>1.000 monedas</strong> por <strong>0.001 ZARD</strong>!
+                Pulsa <strong>GO ZARD • !!UPA PA ARRIBA!!</strong> para arrancar el corredor de inmediato: tu <strong>Chico Fénix en llamas</strong> (negro y morado con borde naranja) corre automático con <strong>6 intentos</strong> y meta de <strong>1.000 monedas</strong> para optar por <strong>0.001 ZARD</strong>.
             </p>
             <div class="rules-list-welcome">
                 <ul style="list-style-position: inside;">
-                    <li><strong>Disparos Continuos:</strong> La <strong>Nave ZAARD</strong> dispara sin parar; tú solo muévela arrastrando el dedo/ratón o con <strong>A/D / Flechas</strong>.</li>
-                    <li><strong>Choque o Disparo Enemigo = Te Mata:</strong> Enemigos disparan cada ~1 segundo. Si te toca un enemigo o su bala, pierdes 1 de tus <strong>6 intentos</strong>.</li>
-                    <li><strong>Dificultad Extrema:</strong> Cada oleada trae más enemigos y mayor velocidad para llegar a <strong>1.000 monedas</strong> (Vault <code>0x327f...C1A8</code>).</li>
+                    <li><strong>Arranque Directo:</strong> Al pulsar <strong>GO ZARD • !!UPA PA ARRIBA!!</strong> comienza a correr de una vez y te indica que ya estás jugando.</li>
+                    <li><strong>Salto Instantáneo:</strong> Toca la pantalla en cualquier momento (sin retraso), haz clic o presiona <strong>Enter / Espacio</strong>.</li>
+                    <li><strong>6 Intentos & 1.000 Monedas:</strong> Esquiva cajas y pájaros rojo y verde hasta llegar a <strong>1.000 monedas</strong> (Vault <code>0x327f...C1A8</code>).</li>
                     <li><strong>Apuesta & Ecosistema:</strong> Modo Apuesta 0.0001 BNB hacia <code>0x84f5...cdc8</code> + balances en vivo de <strong>PANGA</strong>, <strong>ZARED</strong> y <strong>ZYM</strong>.</li>
                 </ul>
             </div>
-            <button class="btn-action" onclick="iniciarBatallaDirecta()">
-                GO ZARD BATTLE<br>!!DISPAROS CONTINUOS ARRIBA!!
+            <button class="btn-action" onclick="iniciarJuegoDirecto()">
+                GO ZARD<br>!!UPA PA ARRIBA!!
             </button>
         </div>
     </div>
@@ -729,12 +770,12 @@
     <div id="screenLoading" class="screen hidden">
         <div class="loading-box">
             <div class="spinner"></div>
-            <h2 style="color: var(--neon-cyan); margin-bottom: 10px;">🚀⚡ Encendiendo Cañones Continuos de la Nave ZAARD...</h2>
-            <p style="color: #d8b4fe;">Cargando oleadas enemigas desde arriba y conectando bóveda 0x327f...C1A8...</p>
+            <h2 style="color: var(--neon-cyan); margin-bottom: 10px;">🔥⚡ GO ZARD • !!UPA PA ARRIBA!! ⚡🔥</h2>
+            <p style="color: #d8b4fe;">Encendiendo llamas del Fénix y arrancando la carrera...</p>
         </div>
     </div>
 
-    <!-- Pantalla 3: Arena ZAARD BATTLE -->
+    <!-- Pantalla 3: Arena ZAARD GO -->
     <div id="screenArena" class="screen hidden">
         <div class="top-bar-arena">
             <div>
@@ -753,7 +794,7 @@
                 </div>
 
                 <div class="live-status-banner" id="liveStatusBanner">
-                    🔥 ¡DISPAROS CONTINUOS! ENEMIGOS DISPARAN CADA 1s • CHOQUE O BALA TE MATA (6 INTENTOS) 🔥
+                    🔥 ¡JUGANDO AHORA! CORREDOR EN MARCHA — TOCA / CLIC / ENTER PARA SALTAR 🔥
                 </div>
 
                 <div class="stats-bar">
@@ -766,16 +807,16 @@
                         <div class="stat-val" style="color:#f472b6;">❤️ <span id="hudLives">6</span> / 6</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-label">Oleada</div>
+                        <div class="stat-label">Dificultad</div>
                         <div class="stat-val" id="hudDiff">Nv. 1</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-label">Derribados</div>
+                        <div class="stat-label">Esquivados</div>
                         <div class="stat-val" style="color:#34d399;" id="hudCleared">0</div>
                     </div>
                 </div>
 
-                <div class="battle-stage" id="battleStage">
+                <div class="runner-stage" id="runnerStage">
                     <div class="stage-fx-layer">
                         <div class="stage-bolt sb1"></div>
                         <div class="stage-bolt sb2"></div>
@@ -784,16 +825,16 @@
                         <div class="stage-spark sp2"></div>
                         <div class="stage-spark sp3"></div>
                     </div>
-                    <canvas id="gameCanvas" width="680" height="600"></canvas>
+                    <canvas id="gameCanvas" width="960" height="510"></canvas>
                 </div>
 
                 <div class="tap-hint-bar">
-                    <span>🚀 <strong>Ráfaga continua activa</strong> • <strong>Arrastra / Toca / Flechas</strong> para esquivar balas y enemigos</span>
+                    <span>🔥 <strong>Corredor activo en pista</strong> • <strong>Toca / Clic / Enter</strong> salta al instante</span>
                     <span style="color:#67e8f9; font-weight:700;">Baúl: 0x327f...C1A8</span>
                 </div>
 
-                <button class="btn-action" id="btnStartRun" onclick="iniciarBatalla()">
-                    🚀⚡ INICIAR / REINICIAR BATALLA (META 1.000 MONEDAS • 6 INTENTOS)
+                <button class="btn-action" id="btnStartRun" onclick="iniciarCarrera()">
+                    GO ZARD • !!UPA PA ARRIBA!! (ARRANCAR / REINICIAR • 6 INTENTOS)
                 </button>
             </div>
 
@@ -882,7 +923,7 @@
         <div class="result-box">
             <h2 id="resultTitle" style="margin-bottom: 14px; color: #34d399;">¡Resultado!</h2>
             <p id="resultDesc" style="color: #e9d5ff; font-size: 0.96rem; margin-bottom: 22px; line-height: 1.6;"></p>
-            <button class="btn-action" onclick="cerrarModalYReiniciar()">🚀⚡ VOLVER A BATALLAR</button>
+            <button class="btn-action" onclick="cerrarModalYReiniciar()">GO ZARD • !!UPA PA ARRIBA!!</button>
         </div>
     </div>
 
@@ -896,7 +937,7 @@
 
         const COIN_IMG_URL = "https://photos.pinksale.finance/file/pinksale-logo-upload/1791940828941-906fd2a3d85625f79d066e5b033f6011.png";
         const BOX_IMG_URL  = "https://photos.pinksale.finance/file/pinksale-logo-upload/1790286366724-9003585f30626b9963bd86a5cf26c8ca.png";
-        const SPACE_DECOS_URLS = [
+        const SKY_CLOUD_URLS = [
             "https://photos.pinksale.finance/file/pinksale-logo-upload/1790286307495-7850b9884619f2e0ccb7358994c11b42.png",
             "https://photos.pinksale.finance/file/pinksale-logo-upload/1790286389131-9ffaade2f1b5bc4c51858adc8fdf4bd4.png",
             "https://photos.pinksale.finance/file/pinksale-logo-upload/1790288769685-7d9a89bc13043a812c4889cb55ac4a54.png",
@@ -916,7 +957,7 @@
         const boxSprite = new Image();
         boxSprite.src = BOX_IMG_URL;
 
-        const spaceDecoSprites = SPACE_DECOS_URLS.map((url) => {
+        const cloudSprites = SKY_CLOUD_URLS.map((url) => {
             const img = new Image();
             img.src = url;
             return img;
@@ -953,7 +994,7 @@
             }
         }
 
-        function playTone(freq, endFreq, duration, type = 'triangle', vol = 0.12) {
+        function playTone(freq, endFreq, duration, type = 'triangle', vol = 0.14) {
             if (!sonidoActivo) return;
             const c = ensureAudioCtx();
             if (!c) return;
@@ -993,14 +1034,14 @@
         }
 
         function playPuuu() {
-            playTone(190, 82, 0.38, 'sawtooth', 0.18);
+            playTone(215, 110, 0.34, 'sawtooth', 0.16);
         }
 
         function iniciarMusicaFondo() {
             detenerMusicaFondo();
             if (!sonidoActivo) return;
             ensureAudioCtx();
-            const notes = [329.63, 392.00, 523.25, 659.25, 587.33, 523.25, 440.00, 523.25];
+            const notes = [261.63, 329.63, 392.00, 523.25, 440.00, 392.00, 349.23, 392.00];
             bgMusicInterval = setInterval(() => {
                 if (!sonidoActivo || !running || !audioCtx) return;
                 if (audioCtx.state === 'suspended') audioCtx.resume().catch(() => {});
@@ -1012,13 +1053,13 @@
                 const now = audioCtx.currentTime;
                 osc.frequency.setValueAtTime(freq, now);
                 gain.gain.setValueAtTime(0.001, now);
-                gain.gain.exponentialRampToValueAtTime(0.045, now + 0.02);
-                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.20);
+                gain.gain.exponentialRampToValueAtTime(0.05, now + 0.02);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
                 osc.connect(gain);
                 gain.connect(audioCtx.destination);
                 osc.start(now);
-                osc.stop(now + 0.22);
-            }, 250);
+                osc.stop(now + 0.24);
+            }, 280);
         }
 
         function detenerMusicaFondo() {
@@ -1110,73 +1151,77 @@
             }
         }
 
-        // Motor ZAARD BATTLE EXTREMA
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
-        const battleStage = document.getElementById('battleStage');
+        const runnerStage = document.getElementById('runnerStage');
+
+        const GROUND_Y = 420;
+        const GRAVITY = 0.72;
+        const JUMP_VELOCITY = -15.6;
 
         let running = false;
         let coins = 0;
         let lives = INITIAL_LIVES;
-        let clearedEnemies = 0;
-        let waveLevel = 1;
+        let clearedObstacles = 0;
+        let speed = 6.4;
+        let difficultyLevel = 1;
         let invulnerable = 0;
-        let enemySpawnTimer = 18;
-        let coinSpawnTimer = 44;
-        let continuousFireTimer = 0;
-        let enginePulse = 0;
-        let killFlashTimer = 0;
+        let spawnCooldown = 50;
+        let coinSpawnCooldown = 12;
+        let groundScroll = 0;
+        let wingPhase = 0;
+        let lastJumpTimestamp = 0;
 
-        const ship = {
-            x: canvas.width / 2,
-            y: canvas.height - 68,
-            w: 54,
-            h: 54,
-            targetX: canvas.width / 2
+        const runner = {
+            x: 115,
+            y: GROUND_Y - 56,
+            w: 46,
+            h: 56,
+            vy: 0,
+            grounded: true
         };
 
-        let keys = { left: false, right: false };
-        let bullets = []; // { x, y, r, vy }
-        let enemyBullets = []; // { x, y, r, vx, vy }
-        let enemies = []; // { kind: 'ufo' | 'pod' | 'meteor', x, y, r, hp, vy, vx, phase, shootTimer }
-        let coinDrops = []; // { x, y, r, vy }
+        let obstacles = [];
+        let coinDrops = [];
         let sparks = [];
-        let stars = [];
-        let spaceDecos = [];
+        let skyClouds = [];
 
-        function initSpaceField() {
-            stars = [];
-            for (let i = 0; i < 65; i++) {
-                stars.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    size: 1 + Math.random() * 2.4,
-                    spd: 2.2 + Math.random() * 3.8,
-                    alpha: 0.35 + Math.random() * 0.65
-                });
+        function actualizarIndicadorEnJuego() {
+            const banner = document.getElementById('liveStatusBanner');
+            if (!banner) return;
+            if (running) {
+                banner.classList.remove('paused');
+                banner.innerText = "🔥 ¡JUGANDO AHORA! CORREDOR EN MARCHA — TOCA / CLIC / ENTER PARA SALTAR 🔥";
+            } else {
+                banner.classList.add('paused');
+                banner.innerText = "⚡ PULSA 'GO ZARD • !!UPA PA ARRIBA!!' O TOCA LA PISTA PARA CORRER ⚡";
             }
+        }
 
-            spaceDecos = [];
-            for (let i = 0; i < 5; i++) {
-                spaceDecos.push({
-                    spriteIdx: i % spaceDecoSprites.length,
-                    x: 70 + i * 135,
-                    y: -90 - i * 150,
-                    size: 46 + (i % 2) * 12,
-                    spd: 1.5 + (i % 3) * 0.5,
-                    alpha: 0.42
+        function initSkyClouds() {
+            skyClouds = [];
+            for (let i = 0; i < 6; i++) {
+                const spriteIdx = i % cloudSprites.length;
+                skyClouds.push({
+                    spriteIdx,
+                    x: 140 + i * 210,
+                    y: 30 + (i % 3) * 46,
+                    size: 56 + (i % 2) * 14,
+                    alpha: 0.74 + (i % 3) * 0.05,
+                    speedFactor: 0.36 + (i % 3) * 0.08
                 });
             }
         }
 
-        function iniciarBatallaDirecta() {
+        // Arranca el juego de una vez al pulsar GO ZARD / !!UPA PA ARRIBA!!
+        function iniciarJuegoDirecto() {
             ensureAudioCtx();
             document.getElementById('screenWelcome').classList.add('hidden');
             document.getElementById('screenLoading').classList.add('hidden');
             document.getElementById('screenArena').classList.remove('hidden');
-            initSpaceField();
-            resetBattleState(true);
-            playTone(440, 880, 0.16, 'triangle', 0.15);
+            initSkyClouds();
+            resetRunnerState(true);
+            playTone(392, 784, 0.16, 'triangle', 0.15);
 
             if (typeof window.ethereum !== 'undefined' && window.ethereum.selectedAddress) {
                 cuentaConectada = window.ethereum.selectedAddress;
@@ -1186,30 +1231,29 @@
             }
         }
 
-        function resetBattleState(startImmediately) {
+        function resetRunnerState(startImmediately) {
             coins = 0;
             lives = INITIAL_LIVES;
-            clearedEnemies = 0;
-            waveLevel = 1;
+            clearedObstacles = 0;
+            difficultyLevel = 1;
+            speed = 6.4;
             invulnerable = 0;
-            killFlashTimer = 0;
-            enemySpawnTimer = 16;
-            coinSpawnTimer = 38;
-            continuousFireTimer = 0;
-            ship.x = canvas.width / 2;
-            ship.targetX = canvas.width / 2;
-            bullets = [];
-            enemyBullets = [];
-            enemies = [];
+            spawnCooldown = 48;
+            coinSpawnCooldown = 10;
+            obstacles = [];
             coinDrops = [];
             sparks = [];
-            if (stars.length === 0) initSpaceField();
+            if (skyClouds.length === 0) initSkyClouds();
+            runner.y = GROUND_Y - runner.h;
+            runner.vy = 0;
+            runner.grounded = true;
             running = startImmediately;
             updateHud();
+            actualizarIndicadorEnJuego();
             if (startImmediately) iniciarMusicaFondo();
         }
 
-        function iniciarBatalla() {
+        function iniciarCarrera() {
             ensureAudioCtx();
             document.getElementById('resultModal').classList.add('hidden');
             if (modoActual === 'apuesta') {
@@ -1223,165 +1267,122 @@
                     value: BET_WEI_HEX
                 };
                 window.ethereum.request({ method: 'eth_sendTransaction', params: [txParams] })
-                    .then(() => resetBattleState(true))
+                    .then(() => resetRunnerState(true))
                     .catch(() => alert("Transacción cancelada."));
             } else {
-                resetBattleState(true);
+                resetRunnerState(true);
             }
         }
 
-        function updateShipTargetFromClientX(clientX) {
-            const rect = battleStage.getBoundingClientRect();
-            if (!rect.width) return;
-            const norm = (clientX - rect.left) / rect.width;
-            const clamped = Math.max(0.08, Math.min(0.92, norm));
-            ship.targetX = clamped * canvas.width;
+        function triggerJumpInstant() {
+            const now = performance.now();
+            if (now - lastJumpTimestamp < 60) return;
+            lastJumpTimestamp = now;
+
+            ensureAudioCtx();
+            if (!running) {
+                resetRunnerState(true);
+                return;
+            }
+            if (runner.grounded) {
+                runner.vy = JUMP_VELOCITY;
+                runner.grounded = false;
+                spawnSparks(runner.x + 12, runner.y + runner.h, '#ff6b1a', 7);
+                playTone(340, 680, 0.13, 'triangle', 0.14);
+            }
         }
 
-        battleStage.addEventListener('pointerdown', (e) => {
+        runnerStage.addEventListener('pointerdown', (e) => {
             e.preventDefault();
-            updateShipTargetFromClientX(e.clientX);
+            triggerJumpInstant();
         }, { passive: false });
 
-        battleStage.addEventListener('pointermove', (e) => {
-            updateShipTargetFromClientX(e.clientX);
-        }, { passive: false });
-
-        battleStage.addEventListener('touchmove', (e) => {
-            if (e.touches && e.touches.length > 0) {
-                e.preventDefault();
-                updateShipTargetFromClientX(e.touches[0].clientX);
-            }
+        runnerStage.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            triggerJumpInstant();
         }, { passive: false });
 
         function updateHud() {
-            waveLevel = Math.min(15, 1 + Math.floor(coins / 65));
+            difficultyLevel = Math.min(12, 1 + Math.floor(coins / 80));
+            speed = 6.4 + (difficultyLevel - 1) * 0.42;
             document.getElementById('hudCoins').innerText = coins.toLocaleString('es-ES');
             document.getElementById('hudLives').innerText = lives;
-            document.getElementById('hudDiff').innerText = `Nv. ${waveLevel}`;
-            document.getElementById('hudCleared').innerText = clearedEnemies;
+            document.getElementById('hudDiff').innerText = `Nv. ${difficultyLevel}`;
+            document.getElementById('hudCleared').innerText = clearedObstacles;
         }
 
         function spawnSparks(x, y, color, qty = 10) {
             for (let i = 0; i < qty; i++) {
                 const ang = Math.random() * Math.PI * 2;
-                const spd = 1.6 + Math.random() * 4.5;
+                const spd = 1.6 + Math.random() * 4.2;
                 sparks.push({
                     x, y,
                     vx: Math.cos(ang) * spd,
-                    vy: Math.sin(ang) * spd,
-                    life: 22,
+                    vy: Math.sin(ang) * spd - 1.2,
+                    life: 24,
                     color
                 });
             }
         }
 
-        // Disparos continuos de la Nave ZAARD
-        function fireContinuousStream() {
-            bullets.push({ x: ship.x - 13, y: ship.y - 24, r: 5, vy: -13.5 });
-            bullets.push({ x: ship.x + 13, y: ship.y - 24, r: 5, vy: -13.5 });
-            if (waveLevel >= 3) {
-                bullets.push({ x: ship.x, y: ship.y - 28, r: 5.5, vy: -14.2 });
-            }
-            playTone(820, 1240, 0.04, 'square', 0.025);
-        }
-
-        function spawnEnemyWave() {
-            // Cada nivel manda más enemigos simultáneos y más rápido
-            const count = Math.min(4, 1 + Math.floor(waveLevel / 3));
-            for (let k = 0; k < count; k++) {
-                const roll = Math.random();
-                const margin = 42;
-                const x = margin + Math.random() * (canvas.width - margin * 2);
-                const baseVy = 2.8 + waveLevel * 0.34 + Math.random() * 1.3;
-                // Disparan aproximadamente cada 1 segundo (~55-65 frames a 60fps)
-                const shootInterval = Math.max(42, 62 - waveLevel * 2);
-
-                if (roll < 0.48) {
-                    enemies.push({
-                        kind: 'ufo',
-                        x,
-                        y: -36 - k * 48,
-                        r: 22,
-                        hp: waveLevel >= 5 ? 2 : 1,
-                        vy: baseVy,
-                        vx: (Math.random() < 0.5 ? -1 : 1) * (1.4 + waveLevel * 0.18),
-                        phase: Math.random() * Math.PI * 2,
-                        shootTimer: 25 + Math.floor(Math.random() * shootInterval),
-                        shootInterval
-                    });
-                } else if (roll < 0.78) {
-                    enemies.push({
-                        kind: 'pod',
-                        x,
-                        y: -36 - k * 48,
-                        r: 21,
-                        hp: waveLevel >= 4 ? 2 : 1,
-                        vy: baseVy * 0.95,
-                        vx: 0,
-                        phase: 0,
-                        shootTimer: 30 + Math.floor(Math.random() * shootInterval),
-                        shootInterval
-                    });
-                } else {
-                    enemies.push({
-                        kind: 'meteor',
-                        x,
-                        y: -36 - k * 48,
-                        r: 20,
-                        hp: 1,
-                        vy: baseVy * 1.32,
-                        vx: (Math.random() - 0.5) * 2.2,
-                        phase: 0,
-                        shootTimer: 9999,
-                        shootInterval: 9999
-                    });
-                }
+        function spawnObstacle() {
+            const useBird = difficultyLevel >= 2 && Math.random() < Math.min(0.48, 0.24 + difficultyLevel * 0.025);
+            if (useBird) {
+                const highBird = Math.random() < 0.45;
+                const birdY = highBird ? GROUND_Y - 88 : GROUND_Y - 46;
+                const birdColor = Math.random() < 0.5 ? 'red' : 'green';
+                obstacles.push({
+                    kind: 'bird',
+                    birdColor,
+                    x: canvas.width + 35,
+                    y: birdY,
+                    w: 46,
+                    h: 30,
+                    passed: false,
+                    wing: 0
+                });
+            } else {
+                const doubleBox = difficultyLevel >= 3 && Math.random() < 0.3;
+                const boxW = doubleBox ? 76 : 44;
+                const boxH = 44;
+                obstacles.push({
+                    kind: 'box',
+                    x: canvas.width + 35,
+                    y: GROUND_Y - boxH,
+                    w: boxW,
+                    h: boxH,
+                    passed: false
+                });
             }
 
-            // Spawn más agresivo conforme aumenta la dificultad
-            enemySpawnTimer = Math.max(9, 28 - waveLevel * 1.8) + Math.floor(Math.random() * 7);
+            const minGap = Math.max(46, 84 - difficultyLevel * 3);
+            spawnCooldown = minGap + Math.floor(Math.random() * 26);
         }
 
-        function fireEnemyShot(en) {
-            if (en.y < 20 || en.y > canvas.height - 140) return;
-            const aimAngle = Math.atan2(ship.y - en.y, ship.x - en.x);
-            const spread = waveLevel >= 4 ? (Math.random() - 0.5) * 0.32 : (Math.random() - 0.5) * 0.14;
-            const bulletSpeed = 4.6 + waveLevel * 0.32;
-            enemyBullets.push({
-                x: en.x,
-                y: en.y + en.r * 0.6,
-                r: 6.5,
-                vx: Math.cos(aimAngle + spread) * bulletSpeed * 0.72,
-                vy: Math.max(4.2, Math.sin(aimAngle + spread) * bulletSpeed)
-            });
-        }
-
-        function spawnCoinFromTop() {
-            coinDrops.push({
-                x: 42 + Math.random() * (canvas.width - 84),
-                y: -26,
-                r: 14,
-                vy: 2.7 + waveLevel * 0.18
-            });
-            coinSpawnTimer = 42 + Math.floor(Math.random() * 24);
-        }
-
-        function handlePlayerFatalHit(reasonText) {
-            if (invulnerable > 0) return;
-            lives--;
-            invulnerable = 70;
-            killFlashTimer = 14;
-            playPuuu();
-            spawnSparks(ship.x, ship.y, '#fb7185', 22);
-            updateHud();
-            if (lives <= 0) {
-                finishBatalla(false, reasonText);
+        function spawnCoinsPattern() {
+            const arc = Math.random() < 0.55;
+            const baseY = arc ? GROUND_Y - 108 : GROUND_Y - 32;
+            for (let i = 0; i < 3; i++) {
+                coinDrops.push({
+                    x: canvas.width + 20 + i * 38,
+                    y: arc ? baseY - Math.sin((i / 2) * Math.PI) * 32 : baseY,
+                    r: 14,
+                    collected: false
+                });
             }
+            coinSpawnCooldown = 18 + Math.floor(Math.random() * 12);
         }
 
-        function finishBatalla(won, reasonText = "") {
+        function rectsHit(a, b) {
+            return a.x < b.x + b.w &&
+                   a.x + a.w > b.x &&
+                   a.y < b.y + b.h &&
+                   a.y + a.h > b.y;
+        }
+
+        function finishCarrera(won) {
             running = false;
+            actualizarIndicadorEnJuego();
             detenerMusicaFondo();
             const modal = document.getElementById('resultModal');
             const title = document.getElementById('resultTitle');
@@ -1390,174 +1391,115 @@
             if (won) {
                 playTululu();
                 title.style.color = "#34d399";
-                title.innerText = "🏆 ¡HAZ IMPOSIBLE SUPERADA! 1.000 MONEDAS 🏆";
-                desc.innerHTML = `Sobreviviste a la oleada extrema y llegaste a <strong>1.000 monedas</strong> derribando <strong>${clearedEnemies} enemigos</strong>.<br>Recompensa: <strong>${PRIZE_ZARD_AMOUNT}</strong>.<br><small style="color:#67e8f9;">Contrato Baúl: <code>${ZAARD_VAULT_CONTRACT}</code></small>`;
+                title.innerText = "🏆 ¡FELICITACIONES! 1.000 MONEDAS 🏆";
+                desc.innerHTML = `Completaste las <strong>1.000 monedas</strong> esquivando <strong>${clearedObstacles} obstáculos</strong>.<br>Recompensa: <strong>${PRIZE_ZARD_AMOUNT}</strong>.<br><small style="color:#67e8f9;">Contrato Baúl: <code>${ZAARD_VAULT_CONTRACT}</code></small>`;
             } else {
                 playPuuu();
                 title.style.color = "#fb7185";
-                title.innerText = "💀 NAVE ELIMINADA — 6 INTENTOS AGOTADOS";
-                desc.innerHTML = `${reasonText ? reasonText + "<br>" : ""}Reuniste <strong>${coins.toLocaleString('es-ES')} / 1.000 monedas</strong> y derribaste <strong>${clearedEnemies} enemigos</strong>. ¡Vuelve a intentarlo!`;
+                title.innerText = "💥 SE AGOTARON LOS 6 INTENTOS";
+                desc.innerHTML = `Reuniste <strong>${coins.toLocaleString('es-ES')} / 1.000 monedas</strong> y esquivaste <strong>${clearedObstacles} obstáculos</strong>. ¡Vuelve a intentarlo!`;
             }
             modal.classList.remove('hidden');
         }
 
         function cerrarModalYReiniciar() {
             document.getElementById('resultModal').classList.add('hidden');
-            resetBattleState(true);
+            resetRunnerState(true);
         }
 
         function update() {
             if (!running) return;
 
-            enginePulse += 0.28;
+            wingPhase += 0.36;
+            groundScroll = (groundScroll + speed) % 48;
             if (invulnerable > 0) invulnerable--;
-            if (killFlashTimer > 0) killFlashTimer--;
 
-            const moveSpd = 8.4;
-            if (keys.left) ship.targetX -= moveSpd;
-            if (keys.right) ship.targetX += moveSpd;
-            ship.targetX = Math.max(36, Math.min(canvas.width - 36, ship.targetX));
-            ship.x += (ship.targetX - ship.x) * 0.30;
+            if (Math.random() < 0.65) {
+                sparks.push({
+                    x: runner.x + 8,
+                    y: runner.y + 18 + Math.random() * 24,
+                    vx: -speed * 0.55 - Math.random() * 1.5,
+                    vy: -1 - Math.random() * 2,
+                    life: 16,
+                    color: Math.random() < 0.6 ? '#ff6b1a' : '#c084fc'
+                });
+            }
 
-            for (const st of stars) {
-                st.y += st.spd + waveLevel * 0.24;
-                if (st.y > canvas.height + 8) {
-                    st.y = -8;
-                    st.x = Math.random() * canvas.width;
+            for (const cl of skyClouds) {
+                cl.x -= speed * cl.speedFactor;
+                if (cl.x + cl.size < -30) {
+                    cl.x = canvas.width + 40 + Math.random() * 90;
+                    cl.y = 26 + Math.floor(Math.random() * 3) * 46;
+                    cl.spriteIdx = (cl.spriteIdx + 1) % cloudSprites.length;
                 }
             }
 
-            for (const sd of spaceDecos) {
-                sd.y += sd.spd;
-                if (sd.y - sd.size > canvas.height + 30) {
-                    sd.y = -70 - Math.random() * 90;
-                    sd.x = 55 + Math.random() * (canvas.width - 110);
-                    sd.spriteIdx = (sd.spriteIdx + 1) % spaceDecoSprites.length;
-                }
+            runner.vy += GRAVITY;
+            runner.y += runner.vy;
+            if (runner.y >= GROUND_Y - runner.h) {
+                runner.y = GROUND_Y - runner.h;
+                runner.vy = 0;
+                runner.grounded = true;
             }
 
-            // Disparos continuos de la Nave ZAARD cada 4 cuadros (~65ms)
-            continuousFireTimer--;
-            if (continuousFireTimer <= 0) {
-                fireContinuousStream();
-                continuousFireTimer = 4;
-            }
+            spawnCooldown--;
+            if (spawnCooldown <= 0) spawnObstacle();
 
-            enemySpawnTimer--;
-            if (enemySpawnTimer <= 0) spawnEnemyWave();
+            coinSpawnCooldown--;
+            if (coinSpawnCooldown <= 0) spawnCoinsPattern();
 
-            coinSpawnTimer--;
-            if (coinSpawnTimer <= 0) spawnCoinFromTop();
+            const playerBox = { x: runner.x + 8, y: runner.y + 6, w: runner.w - 16, h: runner.h - 10 };
 
-            // Proyectiles de la Nave ZAARD
-            for (let i = bullets.length - 1; i >= 0; i--) {
-                bullets[i].y += bullets[i].vy;
-                if (bullets[i].y < -20) {
-                    bullets.splice(i, 1);
-                }
-            }
+            for (let i = obstacles.length - 1; i >= 0; i--) {
+                const ob = obstacles[i];
+                ob.x -= speed * (ob.kind === 'bird' ? 1.15 : 1);
+                if (ob.kind === 'bird') ob.wing += 0.28;
 
-            // Enemigos bajando y disparando cada ~1 segundo
-            for (let i = enemies.length - 1; i >= 0; i--) {
-                const en = enemies[i];
-                en.y += en.vy;
-                if (en.kind === 'ufo') {
-                    en.phase += 0.1;
-                    en.x += Math.sin(en.phase) * 3.0 + en.vx * 0.55;
-                    if (en.x < 30) en.x = 30;
-                    if (en.x > canvas.width - 30) en.x = canvas.width - 30;
-                } else {
-                    en.x += en.vx;
-                    if (en.x < 28 || en.x > canvas.width - 28) en.vx *= -1;
-                }
-
-                if (en.kind !== 'meteor') {
-                    en.shootTimer--;
-                    if (en.shootTimer <= 0) {
-                        fireEnemyShot(en);
-                        en.shootTimer = en.shootInterval;
-                    }
-                }
-
-                let destroyed = false;
-                for (let b = bullets.length - 1; b >= 0; b--) {
-                    const distB = Math.hypot(en.x - bullets[b].x, en.y - bullets[b].y);
-                    if (distB < en.r + bullets[b].r + 4) {
-                        bullets.splice(b, 1);
-                        en.hp--;
-                        spawnSparks(en.x, en.y, '#22d3ee', 5);
-                        if (en.hp <= 0) {
-                            destroyed = true;
-                            clearedEnemies++;
-                            coins += 5;
-                            spawnSparks(en.x, en.y, '#ff6b1a', 14);
-                            coinDrops.push({ x: en.x, y: en.y, r: 14, vy: 2.8 });
-                            updateHud();
-                            if (coins >= GOAL_COINS) {
-                                finishBatalla(true);
-                                return;
-                            }
-                            break;
-                        }
-                    }
-                }
-
-                if (destroyed) {
-                    enemies.splice(i, 1);
-                    continue;
-                }
-
-                // Choque directo con enemigo = te mata en el intento
-                const distShip = Math.hypot(en.x - ship.x, en.y - ship.y);
-                if (distShip < en.r + 20) {
-                    enemies.splice(i, 1);
-                    handlePlayerFatalHit("💥 ¡Te mató un choque directo contra un enemigo!");
-                    if (!running) return;
-                    continue;
-                }
-
-                if (en.y - en.r > canvas.height + 40) {
-                    enemies.splice(i, 1);
-                }
-            }
-
-            // Disparos enemigos bajando: si te pegan = te matan en el intento
-            for (let i = enemyBullets.length - 1; i >= 0; i--) {
-                const eb = enemyBullets[i];
-                eb.x += eb.vx;
-                eb.y += eb.vy;
-
-                const distHit = Math.hypot(eb.x - ship.x, eb.y - ship.y);
-                if (distHit < eb.r + 17) {
-                    enemyBullets.splice(i, 1);
-                    handlePlayerFatalHit("🔫 ¡Te mató un disparo enemigo!");
-                    if (!running) return;
-                    continue;
-                }
-
-                if (eb.y > canvas.height + 30 || eb.x < -30 || eb.x > canvas.width + 30) {
-                    enemyBullets.splice(i, 1);
-                }
-            }
-
-            // Monedas cayendo
-            for (let i = coinDrops.length - 1; i >= 0; i--) {
-                const c = coinDrops[i];
-                c.y += c.vy;
-                const dist = Math.hypot(c.x - ship.x, c.y - ship.y);
-                if (dist < c.r + 28) {
-                    coins++;
-                    playTone(880, 1174, 0.08, 'sine', 0.11);
-                    spawnSparks(c.x, c.y, '#fbbf24', 6);
+                const obBox = { x: ob.x + 5, y: ob.y + 5, w: ob.w - 10, h: ob.h - 10 };
+                if (rectsHit(playerBox, obBox) && invulnerable === 0) {
+                    lives--;
+                    invulnerable = 65;
+                    playPuuu();
+                    spawnSparks(runner.x + runner.w / 2, runner.y + runner.h / 2, '#fb7185', 14);
                     updateHud();
-                    coinDrops.splice(i, 1);
-                    if (coins >= GOAL_COINS) {
-                        finishBatalla(true);
+                    obstacles.splice(i, 1);
+                    if (lives <= 0) {
+                        finishCarrera(false);
                         return;
                     }
                     continue;
                 }
-                if (c.y - c.r > canvas.height + 35) {
+
+                if (!ob.passed && ob.x + ob.w < runner.x) {
+                    ob.passed = true;
+                    clearedObstacles++;
+                    updateHud();
+                }
+
+                if (ob.x + ob.w < -70) {
+                    obstacles.splice(i, 1);
+                }
+            }
+
+            for (let i = coinDrops.length - 1; i >= 0; i--) {
+                const c = coinDrops[i];
+                c.x -= speed;
+                if (!c.collected) {
+                    const dx = (runner.x + runner.w / 2) - c.x;
+                    const dy = (runner.y + runner.h / 2) - c.y;
+                    if (Math.hypot(dx, dy) < c.r + 22) {
+                        c.collected = true;
+                        coins++;
+                        playTone(880, 1174, 0.08, 'sine', 0.11);
+                        spawnSparks(c.x, c.y, '#fbbf24', 6);
+                        updateHud();
+                        if (coins >= GOAL_COINS) {
+                            finishCarrera(true);
+                            return;
+                        }
+                    }
+                }
+                if (c.x < -50 || c.collected) {
                     coinDrops.splice(i, 1);
                 }
             }
@@ -1566,159 +1508,196 @@
                 const s = sparks[i];
                 s.x += s.vx;
                 s.y += s.vy;
+                s.vy += 0.12;
                 s.life--;
                 if (s.life <= 0) sparks.splice(i, 1);
             }
         }
 
-        function drawZaardShip(x, y) {
-            const flameLen = 15 + Math.sin(enginePulse * 2.4) * 7;
+        function drawPhoenixBoy(x, y, w, h) {
+            const flap = Math.sin(wingPhase) * 12;
+            const flameFlicker = Math.sin(wingPhase * 1.8) * 5;
+
             ctx.save();
+
+            const flameGrad = ctx.createRadialGradient(x + w * 0.45, y + h * 0.5, 6, x + w * 0.45, y + h * 0.5, 42 + flameFlicker);
+            flameGrad.addColorStop(0, 'rgba(255, 165, 30, 0.55)');
+            flameGrad.addColorStop(0.5, 'rgba(168, 85, 247, 0.35)');
+            flameGrad.addColorStop(1, 'rgba(255, 107, 26, 0)');
+            ctx.fillStyle = flameGrad;
+            ctx.beginPath();
+            ctx.arc(x + w * 0.45, y + h * 0.5, 42 + flameFlicker, 0, Math.PI * 2);
+            ctx.fill();
 
             ctx.fillStyle = '#ff6b1a';
             ctx.beginPath();
-            ctx.moveTo(x - 10, y + 22);
-            ctx.lineTo(x - 5, y + 22 + flameLen);
-            ctx.lineTo(x, y + 22);
-            ctx.lineTo(x + 5, y + 22 + flameLen);
-            ctx.lineTo(x + 10, y + 22);
+            ctx.moveTo(x + 8, y + 18);
+            ctx.lineTo(x - 14, y + 12 + flameFlicker);
+            ctx.lineTo(x + 6, y + 32);
+            ctx.lineTo(x - 16, y + 38 - flameFlicker);
+            ctx.lineTo(x + 12, y + 44);
             ctx.closePath();
             ctx.fill();
 
-            ctx.fillStyle = '#190b33';
-            ctx.strokeStyle = '#22d3ee';
-            ctx.lineWidth = 2.4;
+            ctx.fillStyle = '#3b0764';
+            ctx.strokeStyle = '#ff7b24';
+            ctx.lineWidth = 2.6;
             ctx.beginPath();
-            ctx.moveTo(x, y - 28);
-            ctx.lineTo(x + 28, y + 18);
-            ctx.lineTo(x + 10, y + 12);
-            ctx.lineTo(x, y + 22);
-            ctx.lineTo(x - 10, y + 12);
-            ctx.lineTo(x - 28, y + 18);
+            ctx.moveTo(x + 13, y + 20);
+            ctx.quadraticCurveTo(x - 18, y - 5 + flap, x - 6, y + 24 + flap * 0.4);
             ctx.closePath();
             ctx.fill();
             ctx.stroke();
 
-            ctx.fillStyle = '#a855f7';
+            ctx.fillStyle = '#140826';
+            ctx.strokeStyle = '#ff9442';
+            ctx.lineWidth = 2.6;
             ctx.beginPath();
-            ctx.ellipse(x, y - 4, 6, 11, 0, 0, Math.PI * 2);
+            ctx.moveTo(x + 16, y + 22);
+            ctx.quadraticCurveTo(x - 14, y + 6 - flap, x - 2, y + 32 - flap * 0.3);
+            ctx.closePath();
             ctx.fill();
+            ctx.stroke();
+
+            const stride = runner.grounded ? Math.sin(wingPhase) * 6 : 4;
+            ctx.fillStyle = '#2e1065';
+            ctx.strokeStyle = '#ff7b24';
+            ctx.lineWidth = 1.8;
+            ctx.beginPath();
+            ctx.roundRect(x + 11 + stride, y + h - 12, 8, 12, 3);
+            ctx.roundRect(x + 25 - stride, y + h - 12, 8, 12, 3);
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.fillStyle = '#180930';
+            ctx.strokeStyle = '#ff7b24';
+            ctx.lineWidth = 2.4;
+            ctx.beginPath();
+            ctx.roundRect(x + 9, y + 18, w - 18, h - 28, 7);
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.fillStyle = '#a855f7';
+            ctx.fillRect(x + 13, y + 25, w - 26, 4);
+
+            ctx.fillStyle = '#120724';
+            ctx.strokeStyle = '#ff8533';
+            ctx.lineWidth = 2.4;
+            ctx.beginPath();
+            ctx.roundRect(x + 10, y + 4, w - 18, 17, 7);
+            ctx.fill();
+            ctx.stroke();
 
             ctx.fillStyle = '#ff6b1a';
             ctx.beginPath();
-            ctx.moveTo(x, y - 28);
-            ctx.lineTo(x + 7, y - 14);
-            ctx.lineTo(x - 7, y - 14);
+            ctx.moveTo(x + 14, y + 5);
+            ctx.lineTo(x + 7, y - 8 + flameFlicker * 0.5);
+            ctx.lineTo(x + 21, y + 3);
+            ctx.lineTo(x + 25, y - 10 - flameFlicker * 0.5);
+            ctx.lineTo(x + 31, y + 5);
             ctx.closePath();
             ctx.fill();
+
+            ctx.fillStyle = '#fde047';
+            ctx.fillRect(x + w - 13, y + 10, 5, 4);
 
             ctx.restore();
         }
 
-        function drawEnemy(en) {
+        function drawBirdEnemy(ob) {
+            const isRed = ob.birdColor === 'red';
+            const bodyFill = isRed ? '#ef4444' : '#10b981';
+            const wingStroke = isRed ? '#fecdd3' : '#a7f3d0';
+            const wingY = ob.y + ob.h * 0.35 + Math.sin(ob.wing) * 9;
+
             ctx.save();
-            if (en.kind === 'ufo') {
-                ctx.fillStyle = '#ef4444';
-                ctx.strokeStyle = '#fecdd3';
-                ctx.lineWidth = 2;
-                ctx.beginPath();
-                ctx.ellipse(en.x, en.y, en.r, en.r * 0.55, 0, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.stroke();
 
-                ctx.fillStyle = '#c084fc';
-                ctx.beginPath();
-                ctx.arc(en.x, en.y - 5, en.r * 0.45, Math.PI, 0);
-                ctx.fill();
-            } else if (en.kind === 'pod') {
-                ctx.beginPath();
-                ctx.arc(en.x, en.y, en.r, 0, Math.PI * 2);
-                ctx.fillStyle = '#2e1065';
-                ctx.fill();
-                ctx.clip();
-                if (boxSprite.complete && boxSprite.naturalWidth > 0) {
-                    ctx.drawImage(boxSprite, en.x - en.r, en.y - en.r, en.r * 2, en.r * 2);
-                }
-                ctx.restore();
+            ctx.fillStyle = bodyFill;
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = 1.8;
+            ctx.beginPath();
+            ctx.ellipse(ob.x + ob.w * 0.52, ob.y + ob.h * 0.55, ob.w * 0.45, ob.h * 0.38, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
 
-                ctx.save();
-                ctx.strokeStyle = '#fb7185';
-                ctx.lineWidth = 2.4;
-                ctx.beginPath();
-                ctx.arc(en.x, en.y, en.r, 0, Math.PI * 2);
-                ctx.stroke();
-            } else {
-                ctx.fillStyle = '#10b981';
-                ctx.strokeStyle = '#ff6b1a';
-                ctx.lineWidth = 2.4;
-                ctx.beginPath();
-                ctx.arc(en.x, en.y, en.r, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.stroke();
-            }
+            ctx.fillStyle = '#fbbf24';
+            ctx.beginPath();
+            ctx.moveTo(ob.x + 4, ob.y + ob.h * 0.45);
+            ctx.lineTo(ob.x - 9, ob.y + ob.h * 0.55);
+            ctx.lineTo(ob.x + 4, ob.y + ob.h * 0.65);
+            ctx.closePath();
+            ctx.fill();
+
+            ctx.fillStyle = '#fff';
+            ctx.beginPath();
+            ctx.arc(ob.x + 11, ob.y + ob.h * 0.46, 3.5, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.strokeStyle = wingStroke;
+            ctx.lineWidth = 3.2;
+            ctx.beginPath();
+            ctx.moveTo(ob.x + ob.w * 0.5, ob.y + ob.h * 0.45);
+            ctx.lineTo(ob.x + ob.w * 0.72, wingY);
+            ctx.stroke();
+
             ctx.restore();
         }
 
         function draw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            const spaceGrad = ctx.createLinearGradient(0, 0, 0, canvas.height);
-            spaceGrad.addColorStop(0, '#071430');
-            spaceGrad.addColorStop(0.55, '#12082e');
-            spaceGrad.addColorStop(1, '#060312');
-            ctx.fillStyle = spaceGrad;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            const skyGrad = ctx.createLinearGradient(0, 0, 0, GROUND_Y);
+            skyGrad.addColorStop(0, '#38bdf8');
+            skyGrad.addColorStop(0.52, '#0284c7');
+            skyGrad.addColorStop(0.88, '#1e1b4b');
+            skyGrad.addColorStop(1, '#170d36');
+            ctx.fillStyle = skyGrad;
+            ctx.fillRect(0, 0, canvas.width, GROUND_Y);
 
-            if (killFlashTimer > 0) {
-                ctx.fillStyle = `rgba(251, 113, 133, ${(killFlashTimer / 14) * 0.26})`;
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-            }
-
-            for (const st of stars) {
-                ctx.fillStyle = `rgba(255, 255, 255, ${st.alpha})`;
-                ctx.fillRect(st.x, st.y, st.size, st.size * 2.2);
-            }
-
-            for (const sd of spaceDecos) {
-                const img = spaceDecoSprites[sd.spriteIdx];
+            for (const cl of skyClouds) {
+                const img = cloudSprites[cl.spriteIdx];
                 if (!img || !img.complete || img.naturalWidth === 0) continue;
                 ctx.save();
-                ctx.globalAlpha = sd.alpha;
+                ctx.globalAlpha = cl.alpha;
                 ctx.beginPath();
-                ctx.arc(sd.x + sd.size / 2, sd.y + sd.size / 2, sd.size / 2, 0, Math.PI * 2);
+                ctx.arc(cl.x + cl.size / 2, cl.y + cl.size / 2, cl.size / 2, 0, Math.PI * 2);
                 ctx.clip();
-                ctx.drawImage(img, sd.x, sd.y, sd.size, sd.size);
+                ctx.drawImage(img, cl.x, cl.y, cl.size, cl.size);
                 ctx.restore();
-            }
 
-            // Disparos continuos de la Nave ZAARD
-            for (const b of bullets) {
                 ctx.save();
-                ctx.fillStyle = '#22d3ee';
-                ctx.shadowColor = '#22d3ee';
-                ctx.shadowBlur = 10;
+                ctx.globalAlpha = cl.alpha * 0.7;
+                ctx.strokeStyle = 'rgba(255,255,255,0.65)';
+                ctx.lineWidth = 1.5;
                 ctx.beginPath();
-                ctx.roundRect(b.x - 3, b.y - 11, 6, 20, 3);
-                ctx.fill();
-                ctx.restore();
-            }
-
-            // Disparos enemigos letales
-            for (const eb of enemyBullets) {
-                ctx.save();
-                ctx.fillStyle = '#fb7185';
-                ctx.strokeStyle = '#fef08a';
-                ctx.lineWidth = 1.6;
-                ctx.shadowColor = '#ef4444';
-                ctx.shadowBlur = 10;
-                ctx.beginPath();
-                ctx.arc(eb.x, eb.y, eb.r, 0, Math.PI * 2);
-                ctx.fill();
+                ctx.arc(cl.x + cl.size / 2, cl.y + cl.size / 2, cl.size / 2, 0, Math.PI * 2);
                 ctx.stroke();
                 ctx.restore();
             }
 
-            // Monedas cayendo
+            const groundGrad = ctx.createLinearGradient(0, GROUND_Y, 0, canvas.height);
+            groundGrad.addColorStop(0, '#24104e');
+            groundGrad.addColorStop(0.55, '#160a33');
+            groundGrad.addColorStop(1, '#0d0621');
+            ctx.fillStyle = groundGrad;
+            ctx.fillRect(0, GROUND_Y, canvas.width, canvas.height - GROUND_Y);
+
+            ctx.fillStyle = '#ff6b1a';
+            ctx.fillRect(0, GROUND_Y, canvas.width, 3);
+
+            ctx.fillStyle = 'rgba(192, 132, 252, 0.5)';
+            for (let gx = -groundScroll; gx < canvas.width; gx += 48) {
+                ctx.fillRect(gx, GROUND_Y + 18, 28, 3);
+            }
+            ctx.fillStyle = 'rgba(34, 211, 238, 0.35)';
+            for (let gx = -(groundScroll * 0.75); gx < canvas.width; gx += 64) {
+                ctx.fillRect(gx, GROUND_Y + 42, 34, 2.5);
+            }
+            ctx.fillStyle = 'rgba(255, 107, 26, 0.35)';
+            for (let gx = -(groundScroll * 1.15); gx < canvas.width; gx += 56) {
+                ctx.fillRect(gx, GROUND_Y + 66, 20, 2.5);
+            }
+
             for (const c of coinDrops) {
                 ctx.save();
                 ctx.beginPath();
@@ -1738,17 +1717,33 @@
                 ctx.stroke();
             }
 
-            // Enemigos
-            for (const en of enemies) {
-                drawEnemy(en);
+            for (const ob of obstacles) {
+                if (ob.kind === 'box') {
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.roundRect(ob.x, ob.y, ob.w, ob.h, 8);
+                    ctx.fillStyle = '#1e1038';
+                    ctx.fill();
+                    ctx.clip();
+                    if (boxSprite.complete && boxSprite.naturalWidth > 0) {
+                        ctx.drawImage(boxSprite, ob.x, ob.y, ob.w, ob.h);
+                    }
+                    ctx.restore();
+
+                    ctx.strokeStyle = '#ff6b1a';
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.roundRect(ob.x, ob.y, ob.w, ob.h, 8);
+                    ctx.stroke();
+                } else {
+                    drawBirdEnemy(ob);
+                }
             }
 
-            // Nave ZAARD
             if (invulnerable === 0 || Math.floor(invulnerable / 5) % 2 === 0) {
-                drawZaardShip(ship.x, ship.y);
+                drawPhoenixBoy(runner.x, runner.y, runner.w, runner.h);
             }
 
-            // Chispas
             for (const s of sparks) {
                 ctx.fillStyle = s.color;
                 ctx.fillRect(s.x, s.y, 5, 5);
@@ -1762,17 +1757,16 @@
         }
 
         window.addEventListener('keydown', (e) => {
-            if (e.code === 'ArrowLeft' || e.code === 'KeyA') keys.left = true;
-            if (e.code === 'ArrowRight' || e.code === 'KeyD') keys.right = true;
+            if (e.code === 'Enter' || e.code === 'Space') {
+                if (!document.getElementById('screenArena').classList.contains('hidden')) {
+                    e.preventDefault();
+                    if (!e.repeat) triggerJumpInstant();
+                }
+            }
         });
 
-        window.addEventListener('keyup', (e) => {
-            if (e.code === 'ArrowLeft' || e.code === 'KeyA') keys.left = false;
-            if (e.code === 'ArrowRight' || e.code === 'KeyD') keys.right = false;
-        });
-
-        initSpaceField();
-        resetBattleState(false);
+        initSkyClouds();
+        resetRunnerState(false);
         loop();
     </script>
 </body>
