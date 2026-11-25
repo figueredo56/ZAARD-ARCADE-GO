@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ZAARD GO - Carrera Infinita, Obstáculos & Recompensas ZARD</title>
+    <title>ZAARD GO - Chico Fénix, 1.000 Monedas & Recompensas ZARD</title>
     <style>
         :root {
             --bg-dark: #06030d;
@@ -14,6 +14,7 @@
             --neon-green: #34d399;
             --neon-red: #fb7185;
             --neon-gold: #f59e0b;
+            --phoenix-orange: #ff6b1a;
         }
 
         * {
@@ -25,9 +26,9 @@
         }
 
         body {
-            background: radial-gradient(circle at 50% 0%, rgba(34, 211, 238, 0.24), transparent 55%),
-                        radial-gradient(circle at 85% 25%, rgba(192, 132, 252, 0.26), transparent 55%),
-                        linear-gradient(rgba(8, 3, 18, 0.85), rgba(4, 2, 10, 0.96)),
+            background: radial-gradient(circle at 50% 0%, rgba(34, 211, 238, 0.28), transparent 55%),
+                        radial-gradient(circle at 85% 25%, rgba(255, 107, 26, 0.22), transparent 55%),
+                        linear-gradient(rgba(8, 3, 18, 0.84), rgba(4, 2, 10, 0.95)),
                         url('https://photos.pinksale.finance/file/pinksale-logo-upload/1790285851823-4955b8f5511ea8235af22dfb82371c91.png');
             background-size: cover;
             background-position: center;
@@ -38,37 +39,61 @@
             flex-direction: column;
             align-items: center;
             overflow-x: hidden;
+            transition: background 1.5s ease;
         }
 
-        /* Rayos y chispas eléctricas */
+        /* Cambio dinámico de atmósfera de fondo */
+        body.aura-0 {
+            background: radial-gradient(circle at 20% 15%, rgba(168, 85, 247, 0.34), transparent 55%),
+                        radial-gradient(circle at 80% 30%, rgba(34, 211, 238, 0.26), transparent 55%),
+                        linear-gradient(180deg, #0b0420 0%, #05020d 100%);
+        }
+        body.aura-1 {
+            background: radial-gradient(circle at 75% 15%, rgba(34, 211, 238, 0.34), transparent 55%),
+                        radial-gradient(circle at 25% 35%, rgba(59, 130, 246, 0.30), transparent 55%),
+                        linear-gradient(180deg, #051329 0%, #030714 100%);
+        }
+        body.aura-2 {
+            background: radial-gradient(circle at 30% 20%, rgba(16, 185, 129, 0.30), transparent 55%),
+                        radial-gradient(circle at 80% 25%, rgba(255, 107, 26, 0.26), transparent 55%),
+                        linear-gradient(180deg, #051c19 0%, #030c0b 100%);
+        }
+        body.aura-3 {
+            background: radial-gradient(circle at 65% 15%, rgba(255, 107, 26, 0.32), transparent 55%),
+                        radial-gradient(circle at 20% 30%, rgba(244, 114, 182, 0.28), transparent 55%),
+                        linear-gradient(180deg, #1d071c 0%, #09020a 100%);
+        }
+
+        /* Rayos y chispas eléctricas en bienvenida y juego */
         .electric-sparks-layer {
             position: fixed;
             inset: 0;
             pointer-events: none;
-            z-index: 1;
+            z-index: 2;
             overflow: hidden;
         }
 
         .spark-bolt {
             position: absolute;
             width: 3px;
-            height: 75px;
-            background: linear-gradient(180deg, transparent, var(--neon-cyan), #ffffff, var(--neon-purple), transparent);
-            filter: drop-shadow(0 0 8px var(--neon-cyan)) drop-shadow(0 0 16px var(--neon-purple));
+            height: 85px;
+            background: linear-gradient(180deg, transparent, var(--neon-cyan), #ffffff, var(--phoenix-orange), transparent);
+            filter: drop-shadow(0 0 8px var(--neon-cyan)) drop-shadow(0 0 18px var(--phoenix-orange));
             opacity: 0;
             transform: rotate(24deg);
-            animation: lightningStrike 3.8s infinite ease-in-out;
+            animation: lightningStrike 3.2s infinite ease-in-out;
         }
 
-        .spark-bolt.b1 { top: 8%; left: 10%; animation-delay: 0s; }
-        .spark-bolt.b2 { top: 22%; right: 12%; height: 90px; transform: rotate(-28deg); animation-delay: 1.3s; }
-        .spark-bolt.b3 { bottom: 18%; left: 16%; height: 70px; transform: rotate(18deg); animation-delay: 2.5s; }
+        .spark-bolt.b1 { top: 7%; left: 9%; animation-delay: 0s; }
+        .spark-bolt.b2 { top: 19%; right: 11%; height: 96px; transform: rotate(-28deg); animation-delay: 1.05s; }
+        .spark-bolt.b3 { bottom: 20%; left: 14%; height: 78px; transform: rotate(18deg); animation-delay: 2.1s; }
+        .spark-bolt.b4 { bottom: 14%; right: 16%; height: 84px; transform: rotate(-22deg); animation-delay: 1.6s; }
 
         @keyframes lightningStrike {
-            0%, 82%, 100% { opacity: 0; transform: scale(0.85) rotate(22deg); }
-            85% { opacity: 1; transform: scale(1.15) rotate(24deg); }
-            88% { opacity: 0.25; }
-            91% { opacity: 0.95; transform: scale(1.05) rotate(20deg); }
+            0%, 78%, 100% { opacity: 0; transform: scale(0.85) rotate(22deg); }
+            82% { opacity: 1; transform: scale(1.2) rotate(24deg); }
+            86% { opacity: 0.2; }
+            90% { opacity: 0.95; transform: scale(1.08) rotate(20deg); }
         }
 
         .spark-dot {
@@ -77,23 +102,25 @@
             height: 6px;
             border-radius: 50%;
             background: #ffffff;
-            box-shadow: 0 0 10px #22d3ee, 0 0 22px #c084fc, 0 0 32px #f472b6;
-            animation: sparkPop 2.2s infinite alternate ease-in-out;
+            box-shadow: 0 0 10px #22d3ee, 0 0 22px #ff6b1a, 0 0 32px #c084fc;
+            animation: sparkPop 1.9s infinite alternate ease-in-out;
         }
 
         .spark-dot.s1 { top: 14%; left: 26%; animation-delay: 0.2s; }
-        .spark-dot.s2 { top: 38%; right: 8%; animation-delay: 0.9s; }
-        .spark-dot.s3 { bottom: 26%; left: 7%; animation-delay: 1.5s; }
-        .spark-dot.s4 { bottom: 12%; right: 24%; animation-delay: 1.9s; }
+        .spark-dot.s2 { top: 36%; right: 8%; animation-delay: 0.9s; }
+        .spark-dot.s3 { bottom: 26%; left: 7%; animation-delay: 1.4s; }
+        .spark-dot.s4 { bottom: 12%; right: 24%; animation-delay: 1.8s; }
+        .spark-dot.s5 { top: 55%; left: 4%; animation-delay: 0.6s; }
+        .spark-dot.s6 { top: 48%; right: 5%; animation-delay: 1.1s; }
 
         @keyframes sparkPop {
             0% { transform: scale(0.5); opacity: 0.35; }
-            100% { transform: scale(1.55); opacity: 1; }
+            100% { transform: scale(1.65); opacity: 1; }
         }
 
         .navbar {
             width: 100%;
-            max-width: 1240px;
+            max-width: 1280px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -174,8 +201,8 @@
 
         .screen {
             width: 100%;
-            max-width: 1240px;
-            padding: 24px 20px;
+            max-width: 1280px;
+            padding: 20px 18px 28px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -186,7 +213,7 @@
 
         .hidden { display: none !important; }
 
-        /* BIENVENIDA */
+        /* BIENVENIDA ÉPICA CON RAYOS Y CAMBIO DE COLOR */
         #screenWelcome {
             justify-content: center;
             min-height: calc(100vh - 76px);
@@ -196,23 +223,23 @@
             background: linear-gradient(165deg, rgba(22, 10, 48, 0.94), rgba(10, 4, 24, 0.97));
             border: 2px solid var(--neon-cyan);
             border-radius: 22px;
-            padding: 40px 36px;
-            max-width: 920px;
+            padding: 38px 34px;
+            max-width: 960px;
             width: 100%;
-            box-shadow: 0 0 55px rgba(168, 85, 247, 0.65), 0 0 32px rgba(34, 211, 238, 0.4), inset 0 0 28px rgba(34, 211, 238, 0.16);
+            box-shadow: 0 0 55px rgba(168, 85, 247, 0.65), 0 0 34px rgba(255, 107, 26, 0.35), inset 0 0 28px rgba(34, 211, 238, 0.16);
             backdrop-filter: blur(10px);
             position: relative;
             overflow: hidden;
         }
 
         .welcome-card-box::before {
-            content: '🏃⚡';
+            content: '🔥⚡';
             position: absolute;
             top: 16px;
             right: 22px;
-            font-size: 1.6rem;
-            filter: drop-shadow(0 0 12px var(--neon-cyan));
-            animation: sparkPop 1.8s infinite alternate;
+            font-size: 1.65rem;
+            filter: drop-shadow(0 0 12px var(--phoenix-orange));
+            animation: sparkPop 1.6s infinite alternate;
         }
 
         .floating-logo-container {
@@ -221,23 +248,23 @@
         }
 
         .floating-logo {
-            width: 118px;
-            height: 118px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
-            border: 3px solid var(--neon-cyan);
+            border: 3px solid var(--phoenix-orange);
             object-fit: cover;
             animation: floatGlow 3s ease-in-out infinite;
         }
 
         @keyframes floatGlow {
-            0% { transform: translateY(0px); box-shadow: 0 0 20px var(--neon-cyan); }
-            50% { transform: translateY(-9px); box-shadow: 0 0 36px var(--neon-purple); }
-            100% { transform: translateY(0px); box-shadow: 0 0 20px var(--neon-cyan); }
+            0% { transform: translateY(0px); box-shadow: 0 0 22px var(--neon-cyan); }
+            50% { transform: translateY(-9px); box-shadow: 0 0 38px var(--phoenix-orange); }
+            100% { transform: translateY(0px); box-shadow: 0 0 22px var(--neon-cyan); }
         }
 
         .welcome-card-box h1 {
-            font-size: clamp(1.75rem, 3.2vw, 2.45rem);
-            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple), var(--neon-pink));
+            font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+            background: linear-gradient(90deg, var(--neon-cyan), var(--phoenix-orange), var(--neon-pink));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 14px;
@@ -269,7 +296,7 @@
         .btn-action {
             display: block;
             width: 100%;
-            background: linear-gradient(135deg, #9333ea, #22d3ee);
+            background: linear-gradient(135deg, #ea580c, #9333ea, #22d3ee);
             color: #fff;
             border: none;
             padding: 15px 20px;
@@ -277,7 +304,7 @@
             font-weight: 800;
             border-radius: 12px;
             cursor: pointer;
-            box-shadow: 0 0 26px rgba(34, 211, 238, 0.55), 0 0 18px rgba(147, 51, 234, 0.55);
+            box-shadow: 0 0 26px rgba(34, 211, 238, 0.55), 0 0 20px rgba(234, 88, 12, 0.55);
             transition: 0.25s;
             text-align: center;
         }
@@ -294,7 +321,7 @@
             height: 66px;
             border: 5px solid rgba(168, 85, 247, 0.25);
             border-top: 5px solid var(--neon-cyan);
-            border-right: 5px solid var(--neon-purple);
+            border-right: 5px solid var(--phoenix-orange);
             border-radius: 50%;
             animation: spin 0.9s linear infinite;
             margin: 0 auto 20px auto;
@@ -342,7 +369,7 @@
             background: var(--card-bg);
             border: 1.5px solid rgba(192, 132, 252, 0.65);
             border-radius: 18px;
-            padding: 24px;
+            padding: 22px;
             box-shadow: 0 0 38px rgba(147, 51, 234, 0.35), inset 0 0 22px rgba(34, 211, 238, 0.08);
             backdrop-filter: blur(8px);
             position: relative;
@@ -366,10 +393,10 @@
 
         .stats-bar {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(125px, 1fr));
             gap: 12px;
             margin-bottom: 16px;
-            background: rgba(10, 4, 22, 0.9);
+            background: rgba(10, 4, 22, 0.92);
             border: 1px solid rgba(192, 132, 252, 0.5);
             border-radius: 12px;
             padding: 14px;
@@ -391,23 +418,82 @@
             text-shadow: 0 0 10px rgba(34, 211, 238, 0.55);
         }
 
+        /* CONTENEDOR DEL JUEGO MÁS GRANDE Y CON RAYOS + CAMBIO DE COLOR */
         .runner-stage {
             position: relative;
             width: 100%;
-            border-radius: 16px;
+            min-height: 430px;
+            border-radius: 18px;
             overflow: hidden;
             border: 2px solid var(--neon-cyan);
-            box-shadow: 0 0 32px rgba(34, 211, 238, 0.35), 0 0 22px rgba(147, 51, 234, 0.35);
-            background: #080316;
+            box-shadow: 0 0 38px rgba(34, 211, 238, 0.38), 0 0 26px rgba(255, 107, 26, 0.32);
+            background: #071329;
             cursor: pointer;
             margin-bottom: 14px;
         }
 
+        .stage-fx-layer {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 3;
+            overflow: hidden;
+        }
+
+        .stage-bolt {
+            position: absolute;
+            width: 2.5px;
+            height: 70px;
+            background: linear-gradient(180deg, transparent, #ffffff, var(--neon-cyan), var(--phoenix-orange), transparent);
+            filter: drop-shadow(0 0 8px #22d3ee) drop-shadow(0 0 14px #ff6b1a);
+            opacity: 0;
+            animation: stageLightning 2.8s infinite ease-in-out;
+        }
+
+        .stage-bolt.sb1 { top: 6%; left: 18%; transform: rotate(22deg); animation-delay: 0s; }
+        .stage-bolt.sb2 { top: 12%; right: 20%; transform: rotate(-25deg); animation-delay: 0.95s; }
+        .stage-bolt.sb3 { top: 24%; left: 52%; height: 58px; transform: rotate(15deg); animation-delay: 1.9s; }
+
+        @keyframes stageLightning {
+            0%, 80%, 100% { opacity: 0; }
+            83% { opacity: 0.95; }
+            87% { opacity: 0.2; }
+            91% { opacity: 0.85; }
+        }
+
+        .stage-spark {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: #fff;
+            box-shadow: 0 0 8px #fbbf24, 0 0 16px #ff6b1a, 0 0 22px #22d3ee;
+            animation: sparkPop 1.5s infinite alternate;
+        }
+
+        .stage-spark.sp1 { top: 18%; left: 32%; animation-delay: 0.1s; }
+        .stage-spark.sp2 { top: 28%; right: 30%; animation-delay: 0.6s; }
+        .stage-spark.sp3 { top: 10%; left: 68%; animation-delay: 1.1s; }
+
         canvas {
             display: block;
             width: 100%;
-            height: auto;
-            aspect-ratio: 16 / 9;
+            height: 440px;
+        }
+
+        @media (min-width: 900px) {
+            canvas {
+                height: 510px;
+            }
+        }
+
+        @media (max-width: 560px) {
+            canvas {
+                height: 360px;
+            }
+            .runner-stage {
+                min-height: 360px;
+            }
         }
 
         .tap-hint-bar {
@@ -419,10 +505,10 @@
             font-size: 0.84rem;
             color: #cbd5e1;
             margin-bottom: 14px;
-            padding: 8px 12px;
+            padding: 9px 14px;
             border-radius: 10px;
-            background: rgba(12, 6, 26, 0.85);
-            border: 1px solid rgba(192, 132, 252, 0.35);
+            background: rgba(12, 6, 26, 0.88);
+            border: 1px solid rgba(192, 132, 252, 0.4);
         }
 
         .ecosystem-showcase {
@@ -580,22 +666,25 @@
         }
     </style>
 </head>
-<body>
+<body class="aura-0">
 
     <div class="electric-sparks-layer">
         <div class="spark-bolt b1"></div>
         <div class="spark-bolt b2"></div>
         <div class="spark-bolt b3"></div>
+        <div class="spark-bolt b4"></div>
         <div class="spark-dot s1"></div>
         <div class="spark-dot s2"></div>
         <div class="spark-dot s3"></div>
         <div class="spark-dot s4"></div>
+        <div class="spark-dot s5"></div>
+        <div class="spark-dot s6"></div>
     </div>
 
     <div class="navbar">
         <div class="logo-area">
             <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1790285851823-4955b8f5511ea8235af22dfb82371c91.png" alt="Logo">
-            <span>ZAARD GO ARCADE</span>
+            <span>ZAARD GO PHOENIX</span>
         </div>
         <div class="nav-controls">
             <div class="lang-badge">⚡ 0.0001 BNB ➔ 0.001 ZARD</div>
@@ -610,19 +699,19 @@
             <div class="floating-logo-container">
                 <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1790285851823-4955b8f5511ea8235af22dfb82371c91.png" alt="Logo ZAARD GO" class="floating-logo">
             </div>
-            <h1>⚡ ZAARD GO — CARRERA AUTOMÁTICA & 300 MONEDAS ⚡</h1>
+            <h1>🔥⚡ ZAARD GO — CHICO FÉNIX & 1.000 MONEDAS ⚡🔥</h1>
             <p class="welcome-desc">
-                Corre automático estilo runner clásico, salta cajas y pájaros con dificultad progresiva y reúne <strong>300 monedas</strong> para ganar <strong>0.001 ZARD</strong> desde el contrato baúl del ecosistema.
+                Vuela y corre con tu <strong>Chico Fénix</strong> (negro, naranja y con alas) sobre un cielo azul con nubes cósmicas, esquiva obstáculos y pájaros enemigos rojo y verde y junta <strong>1.000 monedas</strong> para ganar <strong>0.001 ZARD</strong> desde la bóveda.
             </p>
             <div class="rules-list-welcome">
                 <ul style="list-style-position: inside;">
-                    <li><strong>Salto Simple:</strong> Toca la pantalla en móvil, haz clic con el mouse o presiona <strong>Enter / Espacio</strong> en PC (corre solo).</li>
-                    <li><strong>Dificultad Progresiva:</strong> La velocidad sube al avanzar y aparecen cajas y pájaros a distintas alturas.</li>
-                    <li><strong>Meta de Victoria:</strong> Junta <strong>300 monedas</strong> para completar el reto y reclamar desde la bóveda <code>0x327f...C1A8</code>.</li>
+                    <li><strong>Salto Automático:</strong> Corre solo; salta tocando la pantalla, con clic del mouse o con <strong>Enter / Espacio</strong>.</li>
+                    <li><strong>Meta de 1.000 Monedas:</strong> Recoge <strong>1.000 monedas</strong> con dificultad creciente y reclama desde <code>0x327f...C1A8</code>.</li>
+                    <li><strong>Pájaros Enemigos:</strong> Pájaros rojo y verde cruzan el cielo a distintas alturas para poner a prueba tu salto.</li>
                     <li><strong>Apuesta & Ecosistema:</strong> Modo Apuesta 0.0001 BNB hacia <code>0x84f5...cdc8</code> + balances en vivo de <strong>PANGA</strong>, <strong>ZARED</strong> y <strong>ZYM</strong>.</li>
                 </ul>
             </div>
-            <button class="btn-action" onclick="iniciarTransicion()">⚡🏃 ENTRAR A ZAARD GO</button>
+            <button class="btn-action" onclick="iniciarTransicion()">🔥⚡ ENTRAR A LA ARENA FÉNIX</button>
         </div>
     </div>
 
@@ -630,8 +719,8 @@
     <div id="screenLoading" class="screen hidden">
         <div class="loading-box">
             <div class="spinner"></div>
-            <h2 style="color: var(--neon-cyan); margin-bottom: 10px;">⚡ Preparando Pista ZAARD GO...</h2>
-            <p style="color: #d8b4fe;">Sincronizando dificultad progresiva y bóveda 0x327f...C1A8...</p>
+            <h2 style="color: var(--neon-cyan); margin-bottom: 10px;">🔥⚡ Desplegando Alas del Fénix...</h2>
+            <p style="color: #d8b4fe;">Cargando nubes cósmicas, obstáculos y bóveda 0x327f...C1A8...</p>
         </div>
     </div>
 
@@ -650,13 +739,13 @@
             <div class="card-panel">
                 <div class="payout-pill">
                     <span>🎯 Apuesta: <strong>0.0001 BNB</strong> ➔ <code>0x84f529525fae84b1f1d7ea66939592094426cdc8</code></span>
-                    <span>🏆 Meta 300 🪙: <strong style="color:#34d399;">0.001 ZARD</strong> • Vault: <code>0x327f...C1A8</code></span>
+                    <span>🏆 Meta 1.000 🪙: <strong style="color:#34d399;">0.001 ZARD</strong> • Vault: <code>0x327f...C1A8</code></span>
                 </div>
 
                 <div class="stats-bar">
                     <div class="stat-item">
                         <div class="stat-label">Monedas</div>
-                        <div class="stat-val" style="color:#fbbf24;"><span id="hudCoins">0</span> / 300</div>
+                        <div class="stat-val" style="color:#fbbf24;"><span id="hudCoins">0</span> / 1.000</div>
                     </div>
                     <div class="stat-item">
                         <div class="stat-label">Vidas</div>
@@ -667,22 +756,30 @@
                         <div class="stat-val" id="hudDiff">Nv. 1</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-label">Obstáculos</div>
+                        <div class="stat-label">Esquivados</div>
                         <div class="stat-val" style="color:#34d399;" id="hudCleared">0</div>
                     </div>
                 </div>
 
                 <div class="runner-stage" id="runnerStage" onclick="triggerJumpFromInput()">
-                    <canvas id="gameCanvas" width="960" height="480"></canvas>
+                    <div class="stage-fx-layer">
+                        <div class="stage-bolt sb1"></div>
+                        <div class="stage-bolt sb2"></div>
+                        <div class="stage-bolt sb3"></div>
+                        <div class="stage-spark sp1"></div>
+                        <div class="stage-spark sp2"></div>
+                        <div class="stage-spark sp3"></div>
+                    </div>
+                    <canvas id="gameCanvas" width="960" height="510"></canvas>
                 </div>
 
                 <div class="tap-hint-bar">
-                    <span>🏃 <strong>Corre automático</strong> • <strong>Toca / Clic / Enter</strong> para saltar cajas y pájaros</span>
+                    <span>🔥 <strong>Chico Fénix corre automático</strong> • <strong>Toca / Clic / Enter</strong> para saltar</span>
                     <span style="color:#67e8f9; font-weight:700;">Baúl: 0x327f...C1A8</span>
                 </div>
 
                 <button class="btn-action" id="btnStartRun" onclick="iniciarCarrera()">
-                    ⚡ INICIAR / REINICIAR CARRERA (META 300 MONEDAS)
+                    🔥⚡ INICIAR / REINICIAR CARRERA (META 1.000 MONEDAS)
                 </button>
             </div>
 
@@ -771,7 +868,7 @@
         <div class="result-box">
             <h2 id="resultTitle" style="margin-bottom: 14px; color: #34d399;">¡Resultado!</h2>
             <p id="resultDesc" style="color: #e9d5ff; font-size: 0.96rem; margin-bottom: 22px; line-height: 1.6;"></p>
-            <button class="btn-action" onclick="cerrarModalYReiniciar()">⚡ JUGAR DE NUEVO</button>
+            <button class="btn-action" onclick="cerrarModalYReiniciar()">🔥⚡ JUGAR DE NUEVO</button>
         </div>
     </div>
 
@@ -780,13 +877,45 @@
         const ZAARD_VAULT_CONTRACT = "0x327f9B551EbC850891111EE394741709294CC1A8";
         const BET_WEI_HEX = "0x38D7EA4C68000"; // 0.0001 BNB
         const PRIZE_ZARD_AMOUNT = "0.001 ZARD";
-        const GOAL_COINS = 300;
+        const GOAL_COINS = 1000;
+
+        // Imágenes personalizadas solicitadas
+        const COIN_IMG_URL = "https://photos.pinksale.finance/file/pinksale-logo-upload/1791940828941-906fd2a3d85625f79d066e5b033f6011.png";
+        const BOX_IMG_URL  = "https://photos.pinksale.finance/file/pinksale-logo-upload/1790286366724-9003585f30626b9963bd86a5cf26c8ca.png";
+        const SKY_CLOUD_URLS = [
+            "https://photos.pinksale.finance/file/pinksale-logo-upload/1790286307495-7850b9884619f2e0ccb7358994c11b42.png",
+            "https://photos.pinksale.finance/file/pinksale-logo-upload/1790286389131-9ffaade2f1b5bc4c51858adc8fdf4bd4.png",
+            "https://photos.pinksale.finance/file/pinksale-logo-upload/1790288769685-7d9a89bc13043a812c4889cb55ac4a54.png",
+            "https://photos.pinksale.finance/file/pinksale-logo-upload/1793917735714-d84b28c0d04f3063f454cbc1d8a062fb.png",
+            "https://photos.pinksale.finance/file/pinksale-logo-upload/1794605349763-3b36fe22e2048e05bbf50f8bdf231392.png"
+        ];
 
         const ECOSYSTEM_TOKENS = {
             panga: { address: "0x4a6c3ea9e7132ad217c31f8252119f08c801366e", symbol: "PANGA", elId: "balancePanga" },
             zared: { address: "0xfc2aca08fc64e51793c32e9088fc43a57d39690e", symbol: "ZARED", elId: "balanceZared" },
             zym:   { address: "0x3984bd80e73777f2e790892435338d032b987bc7", symbol: "ZYM",   elId: "balanceZym" }
         };
+
+        // Precarga de imágenes del juego
+        const coinSprite = new Image();
+        coinSprite.src = COIN_IMG_URL;
+
+        const boxSprite = new Image();
+        boxSprite.src = BOX_IMG_URL;
+
+        const cloudSprites = SKY_CLOUD_URLS.map((url) => {
+            const img = new Image();
+            img.src = url;
+            return img;
+        });
+
+        // Cambio de color de fondo cada 12 segundos en bienvenida y juego
+        let auraIndex = 0;
+        setInterval(() => {
+            auraIndex = (auraIndex + 1) % 4;
+            document.body.classList.remove("aura-0", "aura-1", "aura-2", "aura-3");
+            document.body.classList.add("aura-" + auraIndex);
+        }, 12000);
 
         // Audio
         let audioCtx = null;
@@ -971,38 +1100,54 @@
             }
         }
 
-        // Motor Runner Automático Estilo Dino (Cajas + Pájaros + Monedas hasta 300)
+        // Motor Runner del Chico Fénix (Meta 1.000 Monedas)
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
 
-        const GROUND_Y = 395;
+        const GROUND_Y = 425;
         const GRAVITY = 0.72;
-        const JUMP_VELOCITY = -14.8;
+        const JUMP_VELOCITY = -15.4;
 
         let running = false;
         let coins = 0;
         let lives = 3;
         let clearedObstacles = 0;
-        let speed = 6.2;
+        let speed = 6.5;
         let difficultyLevel = 1;
         let invulnerable = 0;
-        let spawnCooldown = 55;
-        let coinSpawnCooldown = 14;
+        let spawnCooldown = 52;
+        let coinSpawnCooldown = 12;
         let groundScroll = 0;
-        let runAnim = 0;
+        let wingPhase = 0;
 
         const runner = {
-            x: 110,
-            y: GROUND_Y - 46,
-            w: 38,
-            h: 46,
+            x: 115,
+            y: GROUND_Y - 54,
+            w: 44,
+            h: 54,
             vy: 0,
             grounded: true
         };
 
-        let obstacles = []; // { kind: 'box' | 'bird', x, y, w, h, passed, wing }
+        let obstacles = []; // { kind: 'box' | 'bird', birdColor: 'red' | 'green', x, y, w, h, passed, wing }
         let coinDrops = []; // { x, y, r, collected }
         let sparks = [];
+        let skyClouds = [];
+
+        function initSkyClouds() {
+            skyClouds = [];
+            for (let i = 0; i < 6; i++) {
+                const spriteIdx = i % cloudSprites.length;
+                skyClouds.push({
+                    spriteIdx,
+                    x: 140 + i * 210,
+                    y: 34 + (i % 3) * 48,
+                    size: 54 + (i % 2) * 14,
+                    alpha: 0.36 + (i % 3) * 0.05,
+                    speedFactor: 0.34 + (i % 3) * 0.08
+                });
+            }
+        }
 
         function iniciarTransicion() {
             ensureAudioCtx();
@@ -1011,6 +1156,7 @@
             setTimeout(() => {
                 document.getElementById('screenLoading').classList.add('hidden');
                 document.getElementById('screenArena').classList.remove('hidden');
+                initSkyClouds();
                 resetRunnerState(false);
                 if (typeof window.ethereum !== 'undefined' && window.ethereum.selectedAddress) {
                     cuentaConectada = window.ethereum.selectedAddress;
@@ -1018,7 +1164,7 @@
                     document.getElementById('connectWalletBtn').innerText = "⚡ " + shortAddr;
                     actualizarBalancesEcosistema(cuentaConectada);
                 }
-            }, 1200);
+            }, 1100);
         }
 
         function resetRunnerState(startImmediately) {
@@ -1026,13 +1172,14 @@
             lives = 3;
             clearedObstacles = 0;
             difficultyLevel = 1;
-            speed = 6.2;
+            speed = 6.5;
             invulnerable = 0;
-            spawnCooldown = 50;
+            spawnCooldown = 48;
             coinSpawnCooldown = 10;
             obstacles = [];
             coinDrops = [];
             sparks = [];
+            if (skyClouds.length === 0) initSkyClouds();
             runner.y = GROUND_Y - runner.h;
             runner.vy = 0;
             runner.grounded = true;
@@ -1071,14 +1218,14 @@
             if (runner.grounded) {
                 runner.vy = JUMP_VELOCITY;
                 runner.grounded = false;
-                playTone(300, 620, 0.14, 'triangle', 0.13);
+                playTone(320, 660, 0.14, 'triangle', 0.14);
             }
         }
 
         function updateHud() {
-            difficultyLevel = Math.min(10, 1 + Math.floor(coins / 30));
-            speed = 6.2 + (difficultyLevel - 1) * 0.55;
-            document.getElementById('hudCoins').innerText = coins;
+            difficultyLevel = Math.min(12, 1 + Math.floor(coins / 80));
+            speed = 6.5 + (difficultyLevel - 1) * 0.45;
+            document.getElementById('hudCoins').innerText = coins.toLocaleString('es-ES');
             document.getElementById('hudLives').innerText = lives;
             document.getElementById('hudDiff').innerText = `Nv. ${difficultyLevel}`;
             document.getElementById('hudCleared').innerText = clearedObstacles;
@@ -1087,40 +1234,40 @@
         function spawnSparks(x, y, color, qty = 10) {
             for (let i = 0; i < qty; i++) {
                 const ang = Math.random() * Math.PI * 2;
-                const spd = 1.5 + Math.random() * 3.8;
+                const spd = 1.6 + Math.random() * 4;
                 sparks.push({
                     x, y,
                     vx: Math.cos(ang) * spd,
-                    vy: Math.sin(ang) * spd - 1,
-                    life: 22,
+                    vy: Math.sin(ang) * spd - 1.2,
+                    life: 24,
                     color
                 });
             }
         }
 
         function spawnObstacle() {
-            const useBird = difficultyLevel >= 2 && Math.random() < Math.min(0.48, 0.22 + difficultyLevel * 0.03);
+            const useBird = difficultyLevel >= 2 && Math.random() < Math.min(0.5, 0.25 + difficultyLevel * 0.025);
             if (useBird) {
-                // Pájaro a altura baja (para saltar) o media
                 const highBird = Math.random() < 0.45;
-                const birdY = highBird ? GROUND_Y - 76 : GROUND_Y - 40;
+                const birdY = highBird ? GROUND_Y - 88 : GROUND_Y - 46;
+                const birdColor = Math.random() < 0.5 ? 'red' : 'green';
                 obstacles.push({
                     kind: 'bird',
-                    x: canvas.width + 30,
+                    birdColor,
+                    x: canvas.width + 35,
                     y: birdY,
-                    w: 42,
-                    h: 28,
+                    w: 46,
+                    h: 30,
                     passed: false,
                     wing: 0
                 });
             } else {
-                // Caja obstáculo en el suelo (a veces doble caja en niveles altos)
-                const doubleBox = difficultyLevel >= 4 && Math.random() < 0.3;
-                const boxW = doubleBox ? 64 : 38;
-                const boxH = 38;
+                const doubleBox = difficultyLevel >= 3 && Math.random() < 0.32;
+                const boxW = doubleBox ? 76 : 44;
+                const boxH = 44;
                 obstacles.push({
                     kind: 'box',
-                    x: canvas.width + 30,
+                    x: canvas.width + 35,
                     y: GROUND_Y - boxH,
                     w: boxW,
                     h: boxH,
@@ -1128,23 +1275,22 @@
                 });
             }
 
-            // Espacio entre obstáculos según velocidad y dificultad
-            const minGap = Math.max(46, 86 - difficultyLevel * 4);
-            spawnCooldown = minGap + Math.floor(Math.random() * 28);
+            const minGap = Math.max(44, 82 - difficultyLevel * 3);
+            spawnCooldown = minGap + Math.floor(Math.random() * 26);
         }
 
         function spawnCoinsPattern() {
-            const arc = Math.random() < 0.5;
-            const baseY = arc ? GROUND_Y - 95 : GROUND_Y - 28;
+            const arc = Math.random() < 0.55;
+            const baseY = arc ? GROUND_Y - 108 : GROUND_Y - 32;
             for (let i = 0; i < 3; i++) {
                 coinDrops.push({
-                    x: canvas.width + 20 + i * 34,
-                    y: arc ? baseY - Math.sin((i / 2) * Math.PI) * 28 : baseY,
-                    r: 11,
+                    x: canvas.width + 20 + i * 38,
+                    y: arc ? baseY - Math.sin((i / 2) * Math.PI) * 32 : baseY,
+                    r: 14,
                     collected: false
                 });
             }
-            coinSpawnCooldown = 22 + Math.floor(Math.random() * 14);
+            coinSpawnCooldown = 18 + Math.floor(Math.random() * 12);
         }
 
         function rectsHit(a, b) {
@@ -1164,13 +1310,13 @@
             if (won) {
                 playTululu();
                 title.style.color = "#34d399";
-                title.innerText = "🏆 ¡FELICITACIONES! 300 MONEDAS 🏆";
-                desc.innerHTML = `Reuniste <strong>${coins} monedas</strong> superando <strong>${clearedObstacles} obstáculos</strong> (Dificultad Nv. ${difficultyLevel}).<br>Recompensa: <strong>${PRIZE_ZARD_AMOUNT}</strong>.<br><small style="color:#67e8f9;">Contrato Baúl: <code>${ZAARD_VAULT_CONTRACT}</code></small>`;
+                title.innerText = "🏆 ¡FELICITACIONES! 1.000 MONEDAS 🏆";
+                desc.innerHTML = `Completaste las <strong>1.000 monedas</strong> esquivando <strong>${clearedObstacles} obstáculos</strong> (Dificultad Nv. ${difficultyLevel}).<br>Recompensa: <strong>${PRIZE_ZARD_AMOUNT}</strong>.<br><small style="color:#67e8f9;">Contrato Baúl: <code>${ZAARD_VAULT_CONTRACT}</code></small>`;
             } else {
                 playPuuu();
                 title.style.color = "#fb7185";
                 title.innerText = "💥 INTENTO FALLIDO";
-                desc.innerHTML = `Llegaste a <strong>${coins} / 300 monedas</strong> y superaste <strong>${clearedObstacles} obstáculos</strong>. ¡Vuelve a intentarlo!`;
+                desc.innerHTML = `Reuniste <strong>${coins.toLocaleString('es-ES')} / 1.000 monedas</strong> y esquivaste <strong>${clearedObstacles} obstáculos</strong>. ¡Vuelve a intentarlo!`;
             }
             modal.classList.remove('hidden');
         }
@@ -1183,11 +1329,21 @@
         function update() {
             if (!running) return;
 
-            runAnim += 0.25;
+            wingPhase += 0.34;
             groundScroll = (groundScroll + speed) % 48;
             if (invulnerable > 0) invulnerable--;
 
-            // Física del salto
+            // Mover nubes de derecha a izquierda en el cielo
+            for (const cl of skyClouds) {
+                cl.x -= speed * cl.speedFactor;
+                if (cl.x + cl.size < -30) {
+                    cl.x = canvas.width + 40 + Math.random() * 90;
+                    cl.y = 28 + Math.floor(Math.random() * 3) * 46;
+                    cl.spriteIdx = (cl.spriteIdx + 1) % cloudSprites.length;
+                }
+            }
+
+            // Salto y gravedad
             runner.vy += GRAVITY;
             runner.y += runner.vy;
             if (runner.y >= GROUND_Y - runner.h) {
@@ -1196,22 +1352,20 @@
                 runner.grounded = true;
             }
 
-            // Generar obstáculos y monedas
             spawnCooldown--;
             if (spawnCooldown <= 0) spawnObstacle();
 
             coinSpawnCooldown--;
             if (coinSpawnCooldown <= 0) spawnCoinsPattern();
 
-            // Mover y evaluar obstáculos
-            const playerBox = { x: runner.x + 5, y: runner.y + 4, w: runner.w - 10, h: runner.h - 6 };
+            const playerBox = { x: runner.x + 8, y: runner.y + 6, w: runner.w - 16, h: runner.h - 10 };
 
             for (let i = obstacles.length - 1; i >= 0; i--) {
                 const ob = obstacles[i];
-                ob.x -= speed * (ob.kind === 'bird' ? 1.15 : 1);
-                if (ob.kind === 'bird') ob.wing += 0.25;
+                ob.x -= speed * (ob.kind === 'bird' ? 1.16 : 1);
+                if (ob.kind === 'bird') ob.wing += 0.28;
 
-                const obBox = { x: ob.x + 4, y: ob.y + 4, w: ob.w - 8, h: ob.h - 8 };
+                const obBox = { x: ob.x + 5, y: ob.y + 5, w: ob.w - 10, h: ob.h - 10 };
                 if (rectsHit(playerBox, obBox) && invulnerable === 0) {
                     lives--;
                     invulnerable = 65;
@@ -1232,12 +1386,11 @@
                     updateHud();
                 }
 
-                if (ob.x + ob.w < -60) {
+                if (ob.x + ob.w < -70) {
                     obstacles.splice(i, 1);
                 }
             }
 
-            // Mover y recoger monedas
             for (let i = coinDrops.length - 1; i >= 0; i--) {
                 const c = coinDrops[i];
                 c.x -= speed;
@@ -1256,12 +1409,11 @@
                         }
                     }
                 }
-                if (c.x < -40 || c.collected) {
+                if (c.x < -50 || c.collected) {
                     coinDrops.splice(i, 1);
                 }
             }
 
-            // Chispas
             for (let i = sparks.length - 1; i >= 0; i--) {
                 const s = sparks[i];
                 s.x += s.vx;
@@ -1272,108 +1424,212 @@
             }
         }
 
+        function drawPhoenixBoy(x, y, w, h) {
+            const flap = Math.sin(wingPhase) * 11;
+
+            ctx.save();
+
+            // Alas de fénix (negro con bordes naranja encendido)
+            // Ala trasera
+            ctx.fillStyle = '#141418';
+            ctx.strokeStyle = '#ff6b1a';
+            ctx.lineWidth = 2.5;
+            ctx.beginPath();
+            ctx.moveTo(x + 12, y + 20);
+            ctx.quadraticCurveTo(x - 16, y - 4 + flap, x - 6, y + 24 + flap * 0.4);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // Ala frontal / principal
+            ctx.fillStyle = '#1b1b22';
+            ctx.strokeStyle = '#ff8c3b';
+            ctx.lineWidth = 2.5;
+            ctx.beginPath();
+            ctx.moveTo(x + 16, y + 22);
+            ctx.quadraticCurveTo(x - 12, y + 6 - flap, x - 2, y + 32 - flap * 0.3);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // Piernas con botas negras y franja naranja
+            const stride = runner.grounded ? Math.sin(wingPhase) * 6 : 4;
+            ctx.fillStyle = '#111116';
+            ctx.fillRect(x + 11 + stride, y + h - 12, 8, 12);
+            ctx.fillRect(x + 24 - stride, y + h - 12, 8, 12);
+            ctx.fillStyle = '#ff6b1a';
+            ctx.fillRect(x + 11 + stride, y + h - 4, 8, 3);
+            ctx.fillRect(x + 24 - stride, y + h - 4, 8, 3);
+
+            // Torso negro con armadura/franja naranja
+            ctx.fillStyle = '#121218';
+            ctx.strokeStyle = '#ff6b1a';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.roundRect(x + 9, y + 18, w - 18, h - 28, 6);
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.fillStyle = '#ff6b1a';
+            ctx.fillRect(x + 13, y + 25, w - 26, 4);
+
+            // Cabeza del chico fénix + cresta/cabello de llama naranja
+            ctx.fillStyle = '#181820';
+            ctx.strokeStyle = '#ff7b24';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.roundRect(x + 10, y + 4, w - 18, 17, 7);
+            ctx.fill();
+            ctx.stroke();
+
+            // Llama / cresta fénix en la cabeza
+            ctx.fillStyle = '#ff6b1a';
+            ctx.beginPath();
+            ctx.moveTo(x + 14, y + 5);
+            ctx.lineTo(x + 8, y - 6);
+            ctx.lineTo(x + 21, y + 3);
+            ctx.lineTo(x + 24, y - 8);
+            ctx.lineTo(x + 29, y + 5);
+            ctx.closePath();
+            ctx.fill();
+
+            // Ojo brillante naranja/dorado
+            ctx.fillStyle = '#fbbf24';
+            ctx.fillRect(x + w - 13, y + 10, 5, 4);
+
+            ctx.restore();
+        }
+
+        function drawBirdEnemy(ob) {
+            const isRed = ob.birdColor === 'red';
+            const bodyFill = isRed ? '#ef4444' : '#10b981';
+            const wingStroke = isRed ? '#fecdd3' : '#a7f3d0';
+            const wingY = ob.y + ob.h * 0.35 + Math.sin(ob.wing) * 9;
+
+            ctx.save();
+
+            // Cuerpo del pájaro enemigo (rojo o verde llamativo)
+            ctx.fillStyle = bodyFill;
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = 1.8;
+            ctx.beginPath();
+            ctx.ellipse(ob.x + ob.w * 0.52, ob.y + ob.h * 0.55, ob.w * 0.45, ob.h * 0.38, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+
+            // Pico
+            ctx.fillStyle = '#fbbf24';
+            ctx.beginPath();
+            ctx.moveTo(ob.x + 4, ob.y + ob.h * 0.45);
+            ctx.lineTo(ob.x - 9, ob.y + ob.h * 0.55);
+            ctx.lineTo(ob.x + 4, ob.y + ob.h * 0.65);
+            ctx.closePath();
+            ctx.fill();
+
+            // Ojo agresivo
+            ctx.fillStyle = '#fff';
+            ctx.beginPath();
+            ctx.arc(ob.x + 11, ob.y + ob.h * 0.46, 3.5, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Ala batiendo
+            ctx.strokeStyle = wingStroke;
+            ctx.lineWidth = 3.2;
+            ctx.beginPath();
+            ctx.moveTo(ob.x + ob.w * 0.5, ob.y + ob.h * 0.45);
+            ctx.lineTo(ob.x + ob.w * 0.72, wingY);
+            ctx.stroke();
+
+            ctx.restore();
+        }
+
         function draw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // Cielo galáctico oscuro
-            const bg = ctx.createLinearGradient(0, 0, 0, canvas.height);
-            bg.addColorStop(0, '#0c0420');
-            bg.addColorStop(0.75, '#19083a');
-            bg.addColorStop(1, '#080314');
-            ctx.fillStyle = bg;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            // Cielo azul claro arriba -> azul profundo -> oscuro donde corre el muñeco
+            const skyGrad = ctx.createLinearGradient(0, 0, 0, GROUND_Y);
+            skyGrad.addColorStop(0, '#38bdf8');
+            skyGrad.addColorStop(0.45, '#0284c7');
+            skyGrad.addColorStop(0.82, '#0c1938');
+            skyGrad.addColorStop(1, '#060712');
+            ctx.fillStyle = skyGrad;
+            ctx.fillRect(0, 0, canvas.width, GROUND_Y);
 
-            // Estrellas en movimiento
-            ctx.fillStyle = 'rgba(255,255,255,0.65)';
-            for (let i = 0; i < 30; i++) {
-                const sx = ((i * 197 - groundScroll * (1.2 + (i % 3) * 0.4)) % canvas.width + canvas.width) % canvas.width;
-                const sy = (i * 53) % (GROUND_Y - 70);
-                ctx.fillRect(sx, sy, 2, 2);
+            // Nubes medianas y semitransparentes pasando de derecha a izquierda en el cielo
+            for (const cl of skyClouds) {
+                const img = cloudSprites[cl.spriteIdx];
+                if (!img || !img.complete || img.naturalWidth === 0) continue;
+                ctx.save();
+                ctx.globalAlpha = cl.alpha;
+                ctx.beginPath();
+                ctx.arc(cl.x + cl.size / 2, cl.y + cl.size / 2, cl.size / 2, 0, Math.PI * 2);
+                ctx.clip();
+                ctx.drawImage(img, cl.x, cl.y, cl.size, cl.size);
+                ctx.restore();
             }
 
-            // Suelo y líneas de velocidad
-            ctx.fillStyle = '#1b0b3d';
+            // Zona oscura donde corre el muñeco
+            const groundGrad = ctx.createLinearGradient(0, GROUND_Y, 0, canvas.height);
+            groundGrad.addColorStop(0, '#090b16');
+            groundGrad.addColorStop(1, '#030408');
+            ctx.fillStyle = groundGrad;
             ctx.fillRect(0, GROUND_Y, canvas.width, canvas.height - GROUND_Y);
-            ctx.fillStyle = '#22d3ee';
+
+            ctx.fillStyle = '#ff6b1a';
             ctx.fillRect(0, GROUND_Y, canvas.width, 3);
 
-            ctx.fillStyle = 'rgba(192, 132, 252, 0.45)';
+            ctx.fillStyle = 'rgba(34, 211, 238, 0.35)';
             for (let gx = -groundScroll; gx < canvas.width; gx += 48) {
-                ctx.fillRect(gx, GROUND_Y + 14, 24, 3);
+                ctx.fillRect(gx, GROUND_Y + 18, 24, 3);
             }
 
-            // Monedas
+            // Monedas con la imagen personalizada
             for (const c of coinDrops) {
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
                 ctx.fillStyle = '#fbbf24';
+                ctx.fill();
+                ctx.clip();
+                if (coinSprite.complete && coinSprite.naturalWidth > 0) {
+                    ctx.drawImage(coinSprite, c.x - c.r, c.y - c.r, c.r * 2, c.r * 2);
+                }
+                ctx.restore();
+
                 ctx.strokeStyle = '#fef08a';
                 ctx.lineWidth = 2;
                 ctx.beginPath();
                 ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
-                ctx.fill();
                 ctx.stroke();
             }
 
-            // Obstáculos: cajas y pájaros
+            // Obstáculos: cajas con la imagen personalizada y pájaros enemigos rojo/verde
             for (const ob of obstacles) {
                 if (ob.kind === 'box') {
-                    ctx.fillStyle = '#7c3aed';
-                    ctx.strokeStyle = '#f472b6';
-                    ctx.lineWidth = 2.5;
+                    ctx.save();
                     ctx.beginPath();
-                    ctx.roundRect(ob.x, ob.y, ob.w, ob.h, 6);
+                    ctx.roundRect(ob.x, ob.y, ob.w, ob.h, 8);
+                    ctx.fillStyle = '#1e1038';
                     ctx.fill();
-                    ctx.stroke();
+                    ctx.clip();
+                    if (boxSprite.complete && boxSprite.naturalWidth > 0) {
+                        ctx.drawImage(boxSprite, ob.x, ob.y, ob.w, ob.h);
+                    }
+                    ctx.restore();
 
-                    // Cruz / detalle de caja
-                    ctx.strokeStyle = '#e9d5ff';
-                    ctx.lineWidth = 1.5;
-                    ctx.strokeRect(ob.x + 7, ob.y + 7, ob.w - 14, ob.h - 14);
+                    ctx.strokeStyle = '#ff6b1a';
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.roundRect(ob.x, ob.y, ob.w, ob.h, 8);
+                    ctx.stroke();
                 } else {
-                    // Pájaro enemigo
-                    ctx.fillStyle = '#fb7185';
-                    ctx.beginPath();
-                    ctx.ellipse(ob.x + ob.w / 2, ob.y + ob.h / 2, ob.w / 2, ob.h / 2.4, 0, 0, Math.PI * 2);
-                    ctx.fill();
-
-                    // Pico
-                    ctx.fillStyle = '#fbbf24';
-                    ctx.beginPath();
-                    ctx.moveTo(ob.x, ob.y + ob.h / 2 - 4);
-                    ctx.lineTo(ob.x - 10, ob.y + ob.h / 2);
-                    ctx.lineTo(ob.x, ob.y + ob.h / 2 + 4);
-                    ctx.closePath();
-                    ctx.fill();
-
-                    // Ala animada
-                    const wingOffset = Math.sin(ob.wing) * 9;
-                    ctx.strokeStyle = '#fecdd3';
-                    ctx.lineWidth = 3;
-                    ctx.beginPath();
-                    ctx.moveTo(ob.x + ob.w * 0.45, ob.y + ob.h * 0.45);
-                    ctx.lineTo(ob.x + ob.w * 0.65, ob.y + ob.h * 0.2 + wingOffset);
-                    ctx.stroke();
+                    drawBirdEnemy(ob);
                 }
             }
 
-            // Corredor automático
+            // Chico Fénix (negro y naranja con alas)
             if (invulnerable === 0 || Math.floor(invulnerable / 5) % 2 === 0) {
-                const legSwing = runner.grounded ? Math.sin(runAnim) * 6 : 4;
-                ctx.fillStyle = '#22d3ee';
-                ctx.strokeStyle = '#ffffff';
-                ctx.lineWidth = 2;
-                ctx.beginPath();
-                ctx.roundRect(runner.x, runner.y, runner.w, runner.h - 8, 8);
-                ctx.fill();
-                ctx.stroke();
-
-                // Ojo
-                ctx.fillStyle = '#080316';
-                ctx.fillRect(runner.x + runner.w - 12, runner.y + 10, 6, 6);
-
-                // Piernas corriendo
-                ctx.fillStyle = '#c084fc';
-                ctx.fillRect(runner.x + 8 + legSwing, runner.y + runner.h - 9, 8, 9);
-                ctx.fillRect(runner.x + 21 - legSwing, runner.y + runner.h - 9, 8, 9);
+                drawPhoenixBoy(runner.x, runner.y, runner.w, runner.h);
             }
 
             // Chispas
@@ -1398,6 +1654,7 @@
             }
         });
 
+        initSkyClouds();
         resetRunnerState(false);
         loop();
     </script>
