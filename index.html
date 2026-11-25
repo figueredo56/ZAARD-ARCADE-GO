@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ZAARD RUN - Aventura de 300 Monedas</title>
+    <title>ZAARD GO - Carrera Infinita, Obstáculos & Recompensas ZARD</title>
     <style>
         :root {
-            --bg-dark: #070312;
-            --neon-cyan: #22d3ee;
+            --bg-dark: #06030d;
+            --card-bg: rgba(20, 10, 42, 0.93);
             --neon-purple: #c084fc;
+            --neon-cyan: #22d3ee;
             --neon-pink: #f472b6;
             --neon-green: #34d399;
-            --neon-gold: #fbbf24;
             --neon-red: #fb7185;
+            --neon-gold: #f59e0b;
         }
 
         * {
@@ -21,94 +22,385 @@
             box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             -webkit-tap-highlight-color: transparent;
-            user-select: none;
         }
 
         body {
-            background: radial-gradient(circle at 50% 0%, rgba(34, 211, 238, 0.2), transparent 55%),
-                        radial-gradient(circle at 85% 20%, rgba(192, 132, 252, 0.22), transparent 55%),
-                        linear-gradient(180deg, #0b041c 0%, #05020d 100%);
+            background: radial-gradient(circle at 50% 0%, rgba(34, 211, 238, 0.24), transparent 55%),
+                        radial-gradient(circle at 85% 25%, rgba(192, 132, 252, 0.26), transparent 55%),
+                        linear-gradient(rgba(8, 3, 18, 0.85), rgba(4, 2, 10, 0.96)),
+                        url('https://photos.pinksale.finance/file/pinksale-logo-upload/1790285851823-4955b8f5511ea8235af22dfb82371c91.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             color: #ffffff;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: space-between;
-            padding: 12px;
             overflow-x: hidden;
         }
 
-        .hud-top {
+        /* Rayos y chispas eléctricas */
+        .electric-sparks-layer {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .spark-bolt {
+            position: absolute;
+            width: 3px;
+            height: 75px;
+            background: linear-gradient(180deg, transparent, var(--neon-cyan), #ffffff, var(--neon-purple), transparent);
+            filter: drop-shadow(0 0 8px var(--neon-cyan)) drop-shadow(0 0 16px var(--neon-purple));
+            opacity: 0;
+            transform: rotate(24deg);
+            animation: lightningStrike 3.8s infinite ease-in-out;
+        }
+
+        .spark-bolt.b1 { top: 8%; left: 10%; animation-delay: 0s; }
+        .spark-bolt.b2 { top: 22%; right: 12%; height: 90px; transform: rotate(-28deg); animation-delay: 1.3s; }
+        .spark-bolt.b3 { bottom: 18%; left: 16%; height: 70px; transform: rotate(18deg); animation-delay: 2.5s; }
+
+        @keyframes lightningStrike {
+            0%, 82%, 100% { opacity: 0; transform: scale(0.85) rotate(22deg); }
+            85% { opacity: 1; transform: scale(1.15) rotate(24deg); }
+            88% { opacity: 0.25; }
+            91% { opacity: 0.95; transform: scale(1.05) rotate(20deg); }
+        }
+
+        .spark-dot {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #ffffff;
+            box-shadow: 0 0 10px #22d3ee, 0 0 22px #c084fc, 0 0 32px #f472b6;
+            animation: sparkPop 2.2s infinite alternate ease-in-out;
+        }
+
+        .spark-dot.s1 { top: 14%; left: 26%; animation-delay: 0.2s; }
+        .spark-dot.s2 { top: 38%; right: 8%; animation-delay: 0.9s; }
+        .spark-dot.s3 { bottom: 26%; left: 7%; animation-delay: 1.5s; }
+        .spark-dot.s4 { bottom: 12%; right: 24%; animation-delay: 1.9s; }
+
+        @keyframes sparkPop {
+            0% { transform: scale(0.5); opacity: 0.35; }
+            100% { transform: scale(1.55); opacity: 1; }
+        }
+
+        .navbar {
             width: 100%;
-            max-width: 960px;
+            max-width: 1240px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 22px;
+            background: rgba(18, 8, 36, 0.94);
+            border-bottom: 1.5px solid rgba(34, 211, 238, 0.55);
+            box-shadow: 0 4px 28px rgba(147, 51, 234, 0.4);
+            backdrop-filter: blur(10px);
+            z-index: 10;
+            position: relative;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            font-weight: 800;
+            font-size: 1.12rem;
+            color: #e9d5ff;
+            letter-spacing: 0.6px;
+        }
+
+        .logo-area img {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 2px solid var(--neon-cyan);
+            box-shadow: 0 0 14px rgba(34, 211, 238, 0.75);
+        }
+
+        .nav-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .lang-badge {
+            background: rgba(30, 17, 56, 0.95);
+            color: #22d3ee;
+            border: 1px solid rgba(34, 211, 238, 0.55);
+            padding: 7px 13px;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            font-weight: bold;
+            box-shadow: 0 0 12px rgba(34, 211, 238, 0.25);
+        }
+
+        .btn-sound {
+            background: rgba(46, 16, 101, 0.92);
+            color: #f3e8ff;
+            border: 1px solid var(--neon-purple);
+            padding: 8px 13px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.84rem;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 0 12px rgba(192, 132, 252, 0.35);
+        }
+
+        .btn-wallet {
+            background: linear-gradient(135deg, #10b981, #22d3ee);
+            color: #041014;
+            border: none;
+            padding: 9px 17px;
+            border-radius: 8px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 0 18px rgba(34, 211, 238, 0.55);
+            transition: 0.25s;
+        }
+
+        .btn-wallet:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 28px rgba(52, 211, 153, 0.85);
+        }
+
+        .screen {
+            width: 100%;
+            max-width: 1240px;
+            padding: 24px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            position: relative;
+            z-index: 5;
+        }
+
+        .hidden { display: none !important; }
+
+        /* BIENVENIDA */
+        #screenWelcome {
+            justify-content: center;
+            min-height: calc(100vh - 76px);
+        }
+
+        .welcome-card-box {
+            background: linear-gradient(165deg, rgba(22, 10, 48, 0.94), rgba(10, 4, 24, 0.97));
+            border: 2px solid var(--neon-cyan);
+            border-radius: 22px;
+            padding: 40px 36px;
+            max-width: 920px;
+            width: 100%;
+            box-shadow: 0 0 55px rgba(168, 85, 247, 0.65), 0 0 32px rgba(34, 211, 238, 0.4), inset 0 0 28px rgba(34, 211, 238, 0.16);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-card-box::before {
+            content: '🏃⚡';
+            position: absolute;
+            top: 16px;
+            right: 22px;
+            font-size: 1.6rem;
+            filter: drop-shadow(0 0 12px var(--neon-cyan));
+            animation: sparkPop 1.8s infinite alternate;
+        }
+
+        .floating-logo-container {
+            text-align: center;
+            margin-bottom: 18px;
+        }
+
+        .floating-logo {
+            width: 118px;
+            height: 118px;
+            border-radius: 50%;
+            border: 3px solid var(--neon-cyan);
+            object-fit: cover;
+            animation: floatGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes floatGlow {
+            0% { transform: translateY(0px); box-shadow: 0 0 20px var(--neon-cyan); }
+            50% { transform: translateY(-9px); box-shadow: 0 0 36px var(--neon-purple); }
+            100% { transform: translateY(0px); box-shadow: 0 0 20px var(--neon-cyan); }
+        }
+
+        .welcome-card-box h1 {
+            font-size: clamp(1.75rem, 3.2vw, 2.45rem);
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple), var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 14px;
+            text-align: center;
+        }
+
+        .welcome-desc {
+            color: #f3e8ff;
+            font-size: clamp(1.02rem, 1.4vw, 1.18rem);
+            line-height: 1.65;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .rules-list-welcome {
+            background: rgba(10, 5, 22, 0.92);
+            border: 1.5px solid rgba(192, 132, 252, 0.65);
+            border-radius: 14px;
+            padding: 18px 24px;
+            margin-bottom: 24px;
+            font-size: clamp(0.95rem, 1.25vw, 1.08rem);
+            color: #e9d5ff;
+            line-height: 1.7;
+            box-shadow: inset 0 0 18px rgba(34, 211, 238, 0.08);
+        }
+
+        .rules-list-welcome li { margin-bottom: 8px; }
+
+        .btn-action {
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg, #9333ea, #22d3ee);
+            color: #fff;
+            border: none;
+            padding: 15px 20px;
+            font-size: 1.08rem;
+            font-weight: 800;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 0 26px rgba(34, 211, 238, 0.55), 0 0 18px rgba(147, 51, 234, 0.55);
+            transition: 0.25s;
+            text-align: center;
+        }
+
+        .btn-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 38px rgba(34, 211, 238, 0.85);
+        }
+
+        .loading-box { text-align: center; padding: 60px 20px; }
+
+        .spinner {
+            width: 66px;
+            height: 66px;
+            border: 5px solid rgba(168, 85, 247, 0.25);
+            border-top: 5px solid var(--neon-cyan);
+            border-right: 5px solid var(--neon-purple);
+            border-radius: 50%;
+            animation: spin 0.9s linear infinite;
+            margin: 0 auto 20px auto;
+            box-shadow: 0 0 28px rgba(34, 211, 238, 0.5);
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .arena-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .top-bar-arena {
+            width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 12px;
             background: rgba(18, 8, 38, 0.92);
-            border: 1.5px solid rgba(34, 211, 238, 0.5);
+            padding: 13px 18px;
             border-radius: 14px;
-            padding: 10px 16px;
-            box-shadow: 0 0 24px rgba(147, 51, 234, 0.35);
-            margin-bottom: 10px;
+            border: 1.5px solid rgba(34, 211, 238, 0.45);
+            box-shadow: 0 0 24px rgba(147, 51, 234, 0.3);
         }
 
-        .brand-title {
-            font-weight: 900;
-            font-size: 1.05rem;
-            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple), var(--neon-gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .mode-badge {
+            display: inline-block;
+            padding: 6px 13px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        .guest-mode { background: #d97706; color: #fff; }
+        .live-mode { background: #7c3aed; color: #fff; box-shadow: 0 0 16px rgba(124, 58, 237, 0.65); }
+
+        .card-panel {
+            background: var(--card-bg);
+            border: 1.5px solid rgba(192, 132, 252, 0.65);
+            border-radius: 18px;
+            padding: 24px;
+            box-shadow: 0 0 38px rgba(147, 51, 234, 0.35), inset 0 0 22px rgba(34, 211, 238, 0.08);
+            backdrop-filter: blur(8px);
+            position: relative;
+        }
+
+        .payout-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(34, 211, 238, 0.45);
+            color: #a7f3d0;
+            padding: 9px 14px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            margin-bottom: 14px;
+            width: 100%;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 12px;
+            margin-bottom: 16px;
+            background: rgba(10, 4, 22, 0.9);
+            border: 1px solid rgba(192, 132, 252, 0.5);
+            border-radius: 12px;
+            padding: 14px;
+        }
+
+        .stat-item { text-align: center; }
+
+        .stat-label {
+            font-size: 0.76rem;
+            color: #c4b5fd;
+            text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
-        .hud-stats {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
+        .stat-val {
+            font-size: 1.25rem;
             font-weight: 800;
-            font-size: 0.92rem;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px rgba(34, 211, 238, 0.55);
         }
 
-        .stat-pill {
-            background: rgba(10, 5, 24, 0.95);
-            border: 1px solid rgba(192, 132, 252, 0.45);
-            padding: 5px 11px;
-            border-radius: 999px;
-        }
-
-        .coins-pill {
-            border-color: rgba(251, 191, 36, 0.7);
-            color: var(--neon-gold);
-        }
-
-        .lives-pill {
-            border-color: rgba(244, 114, 182, 0.7);
-            color: var(--neon-pink);
-        }
-
-        .btn-mini {
-            background: linear-gradient(135deg, #9333ea, #22d3ee);
-            color: #fff;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-weight: 800;
-            font-size: 0.82rem;
-            cursor: pointer;
-        }
-
-        .game-wrapper {
+        .runner-stage {
             position: relative;
             width: 100%;
-            max-width: 960px;
-            border-radius: 18px;
+            border-radius: 16px;
             overflow: hidden;
             border: 2px solid var(--neon-cyan);
-            box-shadow: 0 0 38px rgba(34, 211, 238, 0.32), 0 0 24px rgba(147, 51, 234, 0.35);
-            background: #090318;
+            box-shadow: 0 0 32px rgba(34, 211, 238, 0.35), 0 0 22px rgba(147, 51, 234, 0.35);
+            background: #080316;
+            cursor: pointer;
+            margin-bottom: 14px;
         }
 
         canvas {
@@ -118,160 +410,391 @@
             aspect-ratio: 16 / 9;
         }
 
-        .overlay-screen {
-            position: absolute;
-            inset: 0;
-            background: rgba(7, 3, 18, 0.88);
-            backdrop-filter: blur(5px);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 24px;
-            z-index: 5;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        .overlay-screen h1 {
-            font-size: clamp(1.6rem, 3.8vw, 2.5rem);
-            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-gold), var(--neon-pink));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
-        }
-
-        .overlay-screen p {
-            max-width: 560px;
-            color: #e9d5ff;
-            font-size: clamp(0.92rem, 1.5vw, 1.05rem);
-            line-height: 1.55;
-            margin-bottom: 18px;
-        }
-
-        .btn-main {
-            background: linear-gradient(135deg, #10b981, #22d3ee);
-            color: #041014;
-            border: none;
-            padding: 13px 26px;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: 900;
-            cursor: pointer;
-            box-shadow: 0 0 24px rgba(34, 211, 238, 0.65);
-            transition: transform 0.15s ease;
-        }
-
-        .btn-main:active {
-            transform: scale(0.96);
-        }
-
-        /* Controles táctiles para móvil */
-        .touch-controls {
-            width: 100%;
-            max-width: 960px;
+        .tap-hint-bar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 14px;
-            margin-top: 12px;
+            flex-wrap: wrap;
+            gap: 8px;
+            font-size: 0.84rem;
+            color: #cbd5e1;
+            margin-bottom: 14px;
+            padding: 8px 12px;
+            border-radius: 10px;
+            background: rgba(12, 6, 26, 0.85);
+            border: 1px solid rgba(192, 132, 252, 0.35);
         }
 
-        .move-group {
-            display: flex;
-            gap: 12px;
+        .ecosystem-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 16px;
+            margin-top: 14px;
         }
 
-        .touch-btn {
-            background: rgba(24, 11, 50, 0.94);
-            border: 2px solid var(--neon-purple);
-            color: #fff;
-            width: 64px;
-            height: 64px;
+        .token-pill-card {
+            background: linear-gradient(160deg, rgba(16, 8, 34, 0.96), rgba(8, 4, 18, 0.98));
             border-radius: 16px;
-            font-size: 1.5rem;
-            font-weight: 900;
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 12px;
+            transition: 0.25s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .token-pill-card::after {
+            content: '⚡';
+            position: absolute;
+            top: 10px;
+            right: 12px;
+            font-size: 0.95rem;
+            opacity: 0.85;
+            animation: sparkPop 2s infinite alternate;
+        }
+
+        .token-pill-card:hover { transform: translateY(-4px); }
+
+        .token-pill-top {
             display: flex;
             align-items: center;
+            gap: 13px;
+        }
+
+        .token-pill-card img {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .token-balance-box {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 10px;
+            padding: 9px 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+        }
+
+        .web3-token-tag {
+            display: inline-flex;
+            align-items: center;
             justify-content: center;
-            box-shadow: 0 0 16px rgba(192, 132, 252, 0.35);
+            gap: 6px;
+            width: 100%;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 0.84rem;
+            padding: 9px 12px;
+            border-radius: 10px;
+            transition: 0.25s;
+        }
+
+        .card-panga { border: 1.5px solid rgba(245, 158, 11, 0.7); box-shadow: 0 0 24px rgba(245, 158, 11, 0.25); }
+        .card-panga img { border: 2px solid var(--neon-gold); box-shadow: 0 0 15px rgba(245, 158, 11, 0.65); }
+        .card-panga .web3-token-tag { background: rgba(245, 158, 11, 0.16); border: 1px solid rgba(245, 158, 11, 0.65); color: #fcd34d; }
+
+        .card-zared { border: 1.5px solid rgba(244, 114, 182, 0.7); box-shadow: 0 0 24px rgba(244, 114, 182, 0.25); }
+        .card-zared img { border: 2px solid var(--neon-pink); box-shadow: 0 0 15px rgba(244, 114, 182, 0.65); }
+        .card-zared .web3-token-tag { background: rgba(244, 114, 182, 0.16); border: 1px solid rgba(244, 114, 182, 0.65); color: #f9a8d4; }
+
+        .card-zym { border: 1.5px solid rgba(192, 132, 252, 0.7); box-shadow: 0 0 24px rgba(192, 132, 252, 0.25); }
+        .card-zym img { border: 2px solid var(--neon-purple); box-shadow: 0 0 15px rgba(192, 132, 252, 0.65); }
+        .card-zym .web3-token-tag { background: rgba(192, 132, 252, 0.16); border: 1px solid rgba(192, 132, 252, 0.65); color: #e9d5ff; }
+
+        .footer-nav-links {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            width: 100%;
+            margin-top: 4px;
+        }
+
+        .footer-link-btn {
+            flex: 1;
+            min-width: 220px;
+            background: linear-gradient(135deg, #2e1065, #1e1138);
+            border: 1px solid #9333ea;
+            color: #e9d5ff;
+            text-align: center;
+            padding: 12px 14px;
+            border-radius: 10px;
+            font-size: 0.86rem;
+            font-weight: bold;
+            text-decoration: none;
+            box-shadow: 0 0 15px rgba(147, 51, 234, 0.3);
+            transition: 0.25s;
+        }
+
+        .footer-link-btn:hover {
+            background: linear-gradient(135deg, #3b1d6e, #2e1065);
+            border-color: var(--neon-cyan);
+            transform: translateY(-2px);
+            box-shadow: 0 0 24px rgba(34, 211, 238, 0.55);
+            color: #fff;
+        }
+
+        .result-modal, .wallet-modal {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(8, 3, 18, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .result-box, .wallet-box {
+            background: #160c28;
+            border: 2px solid var(--neon-cyan);
+            padding: 28px;
+            border-radius: 18px;
+            text-align: center;
+            width: 90%;
+            max-width: 440px;
+            box-shadow: 0 0 42px rgba(168, 85, 247, 0.65);
+        }
+
+        .wallet-option {
+            background: #251242;
+            border: 1px solid #7c3aed;
+            color: #fff;
+            padding: 13px;
+            margin: 10px 0;
+            border-radius: 10px;
+            font-weight: bold;
             cursor: pointer;
+            width: 100%;
+            transition: 0.2s;
         }
 
-        .touch-btn:active, .touch-btn.pressed {
-            background: linear-gradient(135deg, #9333ea, #22d3ee);
+        .wallet-option:hover {
+            background: #3b1d6e;
             border-color: var(--neon-cyan);
-            transform: scale(0.94);
-        }
-
-        .jump-btn {
-            width: 110px;
-            border-color: var(--neon-cyan);
-            color: var(--neon-cyan);
-            font-size: 1.05rem;
-            box-shadow: 0 0 18px rgba(34, 211, 238, 0.45);
         }
     </style>
 </head>
 <body>
 
-    <div class="hud-top">
-        <div class="brand-title">⚡ ZAARD RUN • META 300 MONEDAS</div>
-        <div class="hud-stats">
-            <div class="stat-pill coins-pill">🪙 <span id="hudCoins">0</span> / 300</div>
-            <div class="stat-pill lives-pill">❤️ <span id="hudLives">3</span></div>
-            <div class="stat-pill" style="color:#34d399;">🐢 Pisadas: <span id="hudStomps">0</span></div>
-            <button class="btn-mini" id="btnSound" onclick="toggleSound()">🔊 ON</button>
+    <div class="electric-sparks-layer">
+        <div class="spark-bolt b1"></div>
+        <div class="spark-bolt b2"></div>
+        <div class="spark-bolt b3"></div>
+        <div class="spark-dot s1"></div>
+        <div class="spark-dot s2"></div>
+        <div class="spark-dot s3"></div>
+        <div class="spark-dot s4"></div>
+    </div>
+
+    <div class="navbar">
+        <div class="logo-area">
+            <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1790285851823-4955b8f5511ea8235af22dfb82371c91.png" alt="Logo">
+            <span>ZAARD GO ARCADE</span>
+        </div>
+        <div class="nav-controls">
+            <div class="lang-badge">⚡ 0.0001 BNB ➔ 0.001 ZARD</div>
+            <button class="btn-sound" id="btnSoundToggle" onclick="alternarSonido()">🔊 Sonido ON</button>
+            <button class="btn-wallet" id="connectWalletBtn" onclick="conectarDirectoFluido()">Conectar Billetera</button>
         </div>
     </div>
 
-    <div class="game-wrapper">
-        <canvas id="gameCanvas" width="960" height="540"></canvas>
-
-        <!-- Inicio -->
-        <div class="overlay-screen" id="startOverlay">
-            <h1>⚡ ZAARD RUN ⚡</h1>
-            <p>
-                Camina, salta obstáculos y <strong>pisa a las tortugas por encima</strong> para eliminarlas.
-                Evita tocarlas de lado o caer al vacío y junta <strong>300 monedas</strong> para ganar.
+    <!-- Pantalla 1: Bienvenida -->
+    <div id="screenWelcome" class="screen">
+        <div class="welcome-card-box">
+            <div class="floating-logo-container">
+                <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1790285851823-4955b8f5511ea8235af22dfb82371c91.png" alt="Logo ZAARD GO" class="floating-logo">
+            </div>
+            <h1>⚡ ZAARD GO — CARRERA AUTOMÁTICA & 300 MONEDAS ⚡</h1>
+            <p class="welcome-desc">
+                Corre automático estilo runner clásico, salta cajas y pájaros con dificultad progresiva y reúne <strong>300 monedas</strong> para ganar <strong>0.001 ZARD</strong> desde el contrato baúl del ecosistema.
             </p>
-            <button class="btn-main" onclick="startGame()">▶ INICIAR AVENTURA</button>
-        </div>
-
-        <!-- Victoria o Derrota -->
-        <div class="overlay-screen hidden" id="endOverlay">
-            <h1 id="endTitle">¡VICTORIA!</h1>
-            <p id="endDesc">Has reunido 300 monedas.</p>
-            <button class="btn-main" onclick="startGame()">🔄 JUGAR DE NUEVO</button>
+            <div class="rules-list-welcome">
+                <ul style="list-style-position: inside;">
+                    <li><strong>Salto Simple:</strong> Toca la pantalla en móvil, haz clic con el mouse o presiona <strong>Enter / Espacio</strong> en PC (corre solo).</li>
+                    <li><strong>Dificultad Progresiva:</strong> La velocidad sube al avanzar y aparecen cajas y pájaros a distintas alturas.</li>
+                    <li><strong>Meta de Victoria:</strong> Junta <strong>300 monedas</strong> para completar el reto y reclamar desde la bóveda <code>0x327f...C1A8</code>.</li>
+                    <li><strong>Apuesta & Ecosistema:</strong> Modo Apuesta 0.0001 BNB hacia <code>0x84f5...cdc8</code> + balances en vivo de <strong>PANGA</strong>, <strong>ZARED</strong> y <strong>ZYM</strong>.</li>
+                </ul>
+            </div>
+            <button class="btn-action" onclick="iniciarTransicion()">⚡🏃 ENTRAR A ZAARD GO</button>
         </div>
     </div>
 
-    <div class="touch-controls">
-        <div class="move-group">
-            <button class="touch-btn" id="btnLeft" aria-label="Izquierda">←</button>
-            <button class="touch-btn" id="btnRight" aria-label="Derecha">→</button>
+    <!-- Pantalla 2: Transición -->
+    <div id="screenLoading" class="screen hidden">
+        <div class="loading-box">
+            <div class="spinner"></div>
+            <h2 style="color: var(--neon-cyan); margin-bottom: 10px;">⚡ Preparando Pista ZAARD GO...</h2>
+            <p style="color: #d8b4fe;">Sincronizando dificultad progresiva y bóveda 0x327f...C1A8...</p>
         </div>
-        <button class="touch-btn jump-btn" id="btnJump" aria-label="Saltar">SALTAR ↑</button>
+    </div>
+
+    <!-- Pantalla 3: Arena ZAARD GO -->
+    <div id="screenArena" class="screen hidden">
+        <div class="top-bar-arena">
+            <div>
+                <span id="badgeMode" class="mode-badge guest-mode">Modo Invitado (Práctica Libre)</span>
+            </div>
+            <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+                <button onclick="cambiarModo()" class="btn-wallet" id="btnSwitchMode" style="font-size: 0.85rem; padding: 7px 14px;">Activar Modo Apuesta</button>
+            </div>
+        </div>
+
+        <div class="arena-container">
+            <div class="card-panel">
+                <div class="payout-pill">
+                    <span>🎯 Apuesta: <strong>0.0001 BNB</strong> ➔ <code>0x84f529525fae84b1f1d7ea66939592094426cdc8</code></span>
+                    <span>🏆 Meta 300 🪙: <strong style="color:#34d399;">0.001 ZARD</strong> • Vault: <code>0x327f...C1A8</code></span>
+                </div>
+
+                <div class="stats-bar">
+                    <div class="stat-item">
+                        <div class="stat-label">Monedas</div>
+                        <div class="stat-val" style="color:#fbbf24;"><span id="hudCoins">0</span> / 300</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Vidas</div>
+                        <div class="stat-val" style="color:#f472b6;">❤️ <span id="hudLives">3</span></div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Dificultad</div>
+                        <div class="stat-val" id="hudDiff">Nv. 1</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Obstáculos</div>
+                        <div class="stat-val" style="color:#34d399;" id="hudCleared">0</div>
+                    </div>
+                </div>
+
+                <div class="runner-stage" id="runnerStage" onclick="triggerJumpFromInput()">
+                    <canvas id="gameCanvas" width="960" height="480"></canvas>
+                </div>
+
+                <div class="tap-hint-bar">
+                    <span>🏃 <strong>Corre automático</strong> • <strong>Toca / Clic / Enter</strong> para saltar cajas y pájaros</span>
+                    <span style="color:#67e8f9; font-weight:700;">Baúl: 0x327f...C1A8</span>
+                </div>
+
+                <button class="btn-action" id="btnStartRun" onclick="iniciarCarrera()">
+                    ⚡ INICIAR / REINICIAR CARRERA (META 300 MONEDAS)
+                </button>
+            </div>
+
+            <!-- Escaparate de PANGA, ZARED y ZYM -->
+            <div class="card-panel">
+                <h3 style="font-size: 1.05rem; color: #f3e8ff; margin-bottom: 4px;">⚡ Tokens del Ecosistema ZAARD (PANGA • ZARED • ZYM)</h3>
+                <p style="font-size: 0.84rem; color: #cbd5e1; margin-bottom: 10px;">
+                    Conecta tu billetera para ver tu balance en cada token y abre su ficha en Web3 con un clic.
+                </p>
+                <div class="ecosystem-showcase">
+                    <div class="token-pill-card card-panga">
+                        <div class="token-pill-top">
+                            <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1790484633328-559fdd3c13098c92f8a665ac39a838c2.png" alt="PANGA">
+                            <div>
+                                <div style="font-weight: 800; color: #fbbf24; font-size: 1.05rem;">PANGA</div>
+                                <div style="font-size: 0.72rem; color: #cbd5e1; word-break: break-all;">0x4a6c3ea9e7132ad217c31f8252119f08c801366e</div>
+                            </div>
+                        </div>
+                        <div class="token-balance-box">
+                            <span style="color:#cbd5e1;">Balance:</span>
+                            <strong id="balancePanga" style="color:#fbbf24;">-- PANGA</strong>
+                        </div>
+                        <a href="https://app.binance.com/uni-qr/web3-token-details?utm_medium=share&tokenCA=0x4a6c3ea9e7132ad217c31f8252119f08c801366e&binanceChainId=56&chain=bsc" target="_blank" class="web3-token-tag">
+                            ⚡ Abrir PANGA en Web3 ↗
+                        </a>
+                    </div>
+
+                    <div class="token-pill-card card-zared">
+                        <div class="token-pill-top">
+                            <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1794605349763-3b36fe22e2048e05bbf50f8bdf231392.png" alt="ZARED">
+                            <div>
+                                <div style="font-weight: 800; color: #f472b6; font-size: 1.05rem;">ZARED</div>
+                                <div style="font-size: 0.72rem; color: #cbd5e1; word-break: break-all;">0xfc2aca08fc64e51793c32e9088fc43a57d39690e</div>
+                            </div>
+                        </div>
+                        <div class="token-balance-box">
+                            <span style="color:#cbd5e1;">Balance:</span>
+                            <strong id="balanceZared" style="color:#f472b6;">-- ZARED</strong>
+                        </div>
+                        <a href="https://app.binance.com/uni-qr/web3-token-details?utm_medium=share&tokenCA=0xfc2aca08fc64e51793c32e9088fc43a57d39690e&binanceChainId=56&chain=bsc" target="_blank" class="web3-token-tag">
+                            ⚡ Abrir ZARED en Web3 ↗
+                        </a>
+                    </div>
+
+                    <div class="token-pill-card card-zym">
+                        <div class="token-pill-top">
+                            <img src="https://photos.pinksale.finance/file/pinksale-logo-upload/1793917735714-d84b28c0d04f3063f454cbc1d8a062fb.png" alt="ZYM">
+                            <div>
+                                <div style="font-weight: 800; color: #c084fc; font-size: 1.05rem;">ZYM</div>
+                                <div style="font-size: 0.72rem; color: #cbd5e1; word-break: break-all;">0x3984bd80e73777f2e790892435338d032b987bc7</div>
+                            </div>
+                        </div>
+                        <div class="token-balance-box">
+                            <span style="color:#cbd5e1;">Balance:</span>
+                            <strong id="balanceZym" style="color:#c084fc;">-- ZYM</strong>
+                        </div>
+                        <a href="https://app.binance.com/uni-qr/web3-token-details?utm_medium=share&tokenCA=0x3984bd80e73777f2e790892435338d032b987bc7&binanceChainId=56&chain=bsc" target="_blank" class="web3-token-tag">
+                            ⚡ Abrir ZYM en Web3 ↗
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-nav-links">
+                <a href="https://figueredo56.github.io/zaard-innovation-dapp/" target="_blank" class="footer-link-btn">🌐 REGRESAR A ZAARD FINANCE</a>
+                <a href="https://app.binance.com/uni-qr/web3-token-details?utm_medium=share&tokenCA=0xE2879d1172215E728472D7827586bd2796aFA3fB&binanceChainId=56&chain=bsc" target="_blank" class="footer-link-btn">💎 VER ZARD EN BINANCE WEB3</a>
+                <a href="https://figueredo56.github.io/zaard-tracker/" target="_blank" class="footer-link-btn">📊 ZAARD TRACKER</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Billetera -->
+    <div id="walletModal" class="wallet-modal hidden">
+        <div class="wallet-box">
+            <h3 style="color: #e9d5ff; margin-bottom: 12px;">⚡ Conectar Billetera Web3</h3>
+            <p style="color: #cbd5e1; font-size: 0.85rem; margin-bottom: 14px;">Abre directo el navegador de tu cartera sin copiar ni pegar:</p>
+            <button class="wallet-option" onclick="irDirectoCartera('binance')">🟡 Abrir en Binance Web3 App</button>
+            <button class="wallet-option" onclick="irDirectoCartera('trust')">🛡️ Abrir en Trust Wallet</button>
+            <button class="wallet-option" onclick="irDirectoCartera('metamask')">🦊 Abrir en MetaMask</button>
+            <button onclick="cerrarSelectorBilletera()" style="background: transparent; border: 1px solid #7c3aed; color: #c084fc; padding: 8px; border-radius: 8px; margin-top: 10px; cursor: pointer; width: 100%;">Cancelar</button>
+        </div>
+    </div>
+
+    <!-- Modal de Victoria o Fin -->
+    <div id="resultModal" class="result-modal hidden">
+        <div class="result-box">
+            <h2 id="resultTitle" style="margin-bottom: 14px; color: #34d399;">¡Resultado!</h2>
+            <p id="resultDesc" style="color: #e9d5ff; font-size: 0.96rem; margin-bottom: 22px; line-height: 1.6;"></p>
+            <button class="btn-action" onclick="cerrarModalYReiniciar()">⚡ JUGAR DE NUEVO</button>
+        </div>
     </div>
 
     <script>
-        const canvas = document.getElementById('gameCanvas');
-        const ctx = canvas.getContext('2d');
-
+        const WALLET_CREADORA = "0x84f529525fae84b1f1d7ea66939592094426cdc8";
+        const ZAARD_VAULT_CONTRACT = "0x327f9B551EbC850891111EE394741709294CC1A8";
+        const BET_WEI_HEX = "0x38D7EA4C68000"; // 0.0001 BNB
+        const PRIZE_ZARD_AMOUNT = "0.001 ZARD";
         const GOAL_COINS = 300;
-        const GROUND_Y = 450;
-        const GRAVITY = 0.68;
-        const JUMP_FORCE = -14.2;
-        const MOVE_SPEED = 5.4;
 
-        // Audio simple con Web Audio API
+        const ECOSYSTEM_TOKENS = {
+            panga: { address: "0x4a6c3ea9e7132ad217c31f8252119f08c801366e", symbol: "PANGA", elId: "balancePanga" },
+            zared: { address: "0xfc2aca08fc64e51793c32e9088fc43a57d39690e", symbol: "ZARED", elId: "balanceZared" },
+            zym:   { address: "0x3984bd80e73777f2e790892435338d032b987bc7", symbol: "ZYM",   elId: "balanceZym" }
+        };
+
+        // Audio
         let audioCtx = null;
-        let soundOn = true;
+        let sonidoActivo = true;
+        let bgMusicInterval = null;
+        let bgStep = 0;
 
-        function ensureAudio() {
+        function ensureAudioCtx() {
             const Ctx = window.AudioContext || window.webkitAudioContext;
             if (!Ctx) return null;
             if (!audioCtx) audioCtx = new Ctx();
@@ -279,15 +802,20 @@
             return audioCtx;
         }
 
-        function toggleSound() {
-            soundOn = !soundOn;
-            document.getElementById('btnSound').innerText = soundOn ? '🔊 ON' : '🔇 OFF';
-            if (soundOn) ensureAudio();
+        function alternarSonido() {
+            sonidoActivo = !sonidoActivo;
+            document.getElementById('btnSoundToggle').innerText = sonidoActivo ? "🔊 Sonido ON" : "🔇 Silencio";
+            if (sonidoActivo) {
+                ensureAudioCtx();
+                if (running) iniciarMusicaFondo();
+            } else {
+                detenerMusicaFondo();
+            }
         }
 
         function playTone(freq, endFreq, duration, type = 'triangle', vol = 0.14) {
-            if (!soundOn) return;
-            const c = ensureAudio();
+            if (!sonidoActivo) return;
+            const c = ensureAudioCtx();
             if (!c) return;
             const osc = c.createOscillator();
             const gain = c.createGain();
@@ -304,460 +832,555 @@
             osc.stop(now + duration + 0.02);
         }
 
-        const sfxJump = () => playTone(280, 560, 0.16, 'triangle', 0.14);
-        const sfxCoin = () => {
-            playTone(784, 1046, 0.09, 'sine', 0.14);
-            setTimeout(() => playTone(1046, 1318, 0.11, 'sine', 0.13), 75);
-        };
-        const sfxStomp = () => playTone(420, 140, 0.18, 'square', 0.14);
-        const sfxHurt = () => playTone(200, 85, 0.28, 'sawtooth', 0.16);
-        const sfxWin = () => {
-            [523.25, 659.25, 783.99, 1046.5].forEach((n, i) => {
-                setTimeout(() => playTone(n, n * 1.05, 0.18, 'triangle', 0.16), i * 110);
+        function playTululu() {
+            if (!sonidoActivo) return;
+            const c = ensureAudioCtx();
+            if (!c) return;
+            [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
+                const osc = c.createOscillator();
+                const gain = c.createGain();
+                osc.type = 'triangle';
+                const t = c.currentTime + idx * 0.06;
+                osc.frequency.setValueAtTime(freq, t);
+                gain.gain.setValueAtTime(0.001, t);
+                gain.gain.exponentialRampToValueAtTime(0.18, t + 0.015);
+                gain.gain.exponentialRampToValueAtTime(0.001, t + 0.14);
+                osc.connect(gain);
+                gain.connect(c.destination);
+                osc.start(t);
+                osc.stop(t + 0.15);
             });
-        };
+        }
 
-        // Estado del juego
+        function playPuuu() {
+            playTone(215, 110, 0.34, 'sawtooth', 0.16);
+        }
+
+        function iniciarMusicaFondo() {
+            detenerMusicaFondo();
+            if (!sonidoActivo) return;
+            ensureAudioCtx();
+            const notes = [261.63, 329.63, 392.00, 523.25, 440.00, 392.00, 349.23, 392.00];
+            bgMusicInterval = setInterval(() => {
+                if (!sonidoActivo || !running || !audioCtx) return;
+                if (audioCtx.state === 'suspended') audioCtx.resume().catch(() => {});
+                const freq = notes[bgStep % notes.length];
+                bgStep++;
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'triangle';
+                const now = audioCtx.currentTime;
+                osc.frequency.setValueAtTime(freq, now);
+                gain.gain.setValueAtTime(0.001, now);
+                gain.gain.exponentialRampToValueAtTime(0.05, now + 0.02);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(now);
+                osc.stop(now + 0.24);
+            }, 280);
+        }
+
+        function detenerMusicaFondo() {
+            if (bgMusicInterval) {
+                clearInterval(bgMusicInterval);
+                bgMusicInterval = null;
+            }
+        }
+
+        // Billetera Web3
+        let modoActual = 'invitado';
+        let cuentaConectada = null;
+
+        function conectarDirectoFluido() {
+            if (typeof window.ethereum !== 'undefined') {
+                window.ethereum.request({ method: 'eth_requestAccounts' })
+                    .then(async (accounts) => {
+                        if (!accounts || !accounts.length) return;
+                        cuentaConectada = accounts[0];
+                        const shortAddr = cuentaConectada.substring(0, 6) + "..." + cuentaConectada.substring(cuentaConectada.length - 4);
+                        document.getElementById('connectWalletBtn').innerText = "⚡ " + shortAddr;
+                        await actualizarBalancesEcosistema(cuentaConectada);
+                    })
+                    .catch(() => abrirSelectorBilletera());
+            } else {
+                const currentUrl = window.location.href;
+                window.location.href = "https://metamask.app.link/dapp/" + currentUrl.replace(/^https?:\/\//, '');
+            }
+        }
+
+        function irDirectoCartera(tipo) {
+            cerrarSelectorBilletera();
+            const currentUrl = window.location.href;
+            if (tipo === 'binance') {
+                window.location.href = "https://app.binance.com/uni-qr/web3-token-details?app_browser=true&url=" + encodeURIComponent(currentUrl);
+            } else if (tipo === 'trust') {
+                window.location.href = "https://link.trustwallet.com/open_url?coin_id=20000714&url=" + encodeURIComponent(currentUrl);
+            } else {
+                window.location.href = "https://metamask.app.link/dapp/" + currentUrl.replace(/^https?:\/\//, '');
+            }
+        }
+
+        async function actualizarBalancesEcosistema(address) {
+            if (!window.ethereum || !address) return;
+            const paddedAddr = address.toLowerCase().replace(/^0x/, '').padStart(64, '0');
+            const dataCall = '0x70a08231' + paddedAddr;
+
+            for (const key of Object.keys(ECOSYSTEM_TOKENS)) {
+                const info = ECOSYSTEM_TOKENS[key];
+                const el = document.getElementById(info.elId);
+                if (!el) continue;
+                try {
+                    const hexBal = await window.ethereum.request({
+                        method: 'eth_call',
+                        params: [{ to: info.address, data: dataCall }, 'latest']
+                    });
+                    if (hexBal && hexBal !== '0x') {
+                        const raw = BigInt(hexBal);
+                        const formatted = (Number(raw) / 1e18).toLocaleString('es-ES', { maximumFractionDigits: 2 });
+                        el.innerText = `${formatted} ${info.symbol}`;
+                    } else {
+                        el.innerText = `0.00 ${info.symbol}`;
+                    }
+                } catch (e) {
+                    el.innerText = `0.00 ${info.symbol}`;
+                }
+            }
+        }
+
+        function abrirSelectorBilletera() {
+            document.getElementById('walletModal').classList.remove('hidden');
+        }
+
+        function cerrarSelectorBilletera() {
+            document.getElementById('walletModal').classList.add('hidden');
+        }
+
+        function cambiarModo() {
+            if (modoActual === 'invitado') {
+                modoActual = 'apuesta';
+                document.getElementById('badgeMode').className = "mode-badge live-mode";
+                document.getElementById('badgeMode').innerText = "Modo Apuesta Real (0.0001 BNB)";
+                document.getElementById('btnSwitchMode').innerText = "Cambiar a Modo Invitado";
+                conectarDirectoFluido();
+            } else {
+                modoActual = 'invitado';
+                document.getElementById('badgeMode').className = "mode-badge guest-mode";
+                document.getElementById('badgeMode').innerText = "Modo Invitado (Práctica Libre)";
+                document.getElementById('btnSwitchMode').innerText = "Activar Modo Apuesta";
+            }
+        }
+
+        // Motor Runner Automático Estilo Dino (Cajas + Pájaros + Monedas hasta 300)
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        const GROUND_Y = 395;
+        const GRAVITY = 0.72;
+        const JUMP_VELOCITY = -14.8;
+
         let running = false;
         let coins = 0;
         let lives = 3;
-        let stomps = 0;
-        let cameraX = 0;
-        let nextSpawnX = 520;
-        let invulnerableTimer = 0;
+        let clearedObstacles = 0;
+        let speed = 6.2;
+        let difficultyLevel = 1;
+        let invulnerable = 0;
+        let spawnCooldown = 55;
+        let coinSpawnCooldown = 14;
+        let groundScroll = 0;
+        let runAnim = 0;
 
-        const player = {
-            x: 120,
+        const runner = {
+            x: 110,
             y: GROUND_Y - 46,
-            w: 36,
+            w: 38,
             h: 46,
-            vx: 0,
             vy: 0,
-            grounded: false,
-            facing: 1
+            grounded: true
         };
 
-        const input = { left: false, right: false, jump: false };
+        let obstacles = []; // { kind: 'box' | 'bird', x, y, w, h, passed, wing }
+        let coinDrops = []; // { x, y, r, collected }
+        let sparks = [];
 
-        let platforms = [];
-        let spikes = [];
-        let enemies = [];
-        let coinItems = [];
-        let particles = [];
+        function iniciarTransicion() {
+            ensureAudioCtx();
+            document.getElementById('screenWelcome').classList.add('hidden');
+            document.getElementById('screenLoading').classList.remove('hidden');
+            setTimeout(() => {
+                document.getElementById('screenLoading').classList.add('hidden');
+                document.getElementById('screenArena').classList.remove('hidden');
+                resetRunnerState(false);
+                if (typeof window.ethereum !== 'undefined' && window.ethereum.selectedAddress) {
+                    cuentaConectada = window.ethereum.selectedAddress;
+                    const shortAddr = cuentaConectada.substring(0, 6) + "..." + cuentaConectada.substring(cuentaConectada.length - 4);
+                    document.getElementById('connectWalletBtn').innerText = "⚡ " + shortAddr;
+                    actualizarBalancesEcosistema(cuentaConectada);
+                }
+            }, 1200);
+        }
 
-        function resetWorld() {
+        function resetRunnerState(startImmediately) {
             coins = 0;
             lives = 3;
-            stomps = 0;
-            cameraX = 0;
-            nextSpawnX = 520;
-            invulnerableTimer = 0;
-
-            player.x = 120;
-            player.y = GROUND_Y - player.h;
-            player.vx = 0;
-            player.vy = 0;
-            player.grounded = true;
-            player.facing = 1;
-
-            platforms = [];
-            spikes = [];
-            enemies = [];
-            coinItems = [];
-            particles = [];
-
-            // Monedas iniciales para que empieces a recoger de inmediato
-            for (let i = 0; i < 6; i++) {
-                coinItems.push({
-                    x: 240 + i * 52,
-                    y: GROUND_Y - 36 - (i % 2) * 45,
-                    r: 12,
-                    collected: false,
-                    bob: i * 0.6
-                });
-            }
-
-            // Generar tramo inicial
-            generateChunk(2400);
+            clearedObstacles = 0;
+            difficultyLevel = 1;
+            speed = 6.2;
+            invulnerable = 0;
+            spawnCooldown = 50;
+            coinSpawnCooldown = 10;
+            obstacles = [];
+            coinDrops = [];
+            sparks = [];
+            runner.y = GROUND_Y - runner.h;
+            runner.vy = 0;
+            runner.grounded = true;
+            running = startImmediately;
             updateHud();
+            if (startImmediately) iniciarMusicaFondo();
         }
 
-        function generateChunk(targetX) {
-            while (nextSpawnX < targetX) {
-                const chunkWidth = 360 + Math.random() * 180;
-                const roll = Math.random();
-
-                // Plataforma flotante con monedas
-                if (roll < 0.65) {
-                    const platW = 120 + Math.floor(Math.random() * 3) * 35;
-                    const platY = GROUND_Y - (95 + Math.floor(Math.random() * 3) * 38);
-                    const platX = nextSpawnX + 60;
-                    platforms.push({ x: platX, y: platY, w: platW, h: 18 });
-
-                    const numCoins = Math.max(2, Math.floor(platW / 38));
-                    for (let c = 0; c < numCoins; c++) {
-                        coinItems.push({
-                            x: platX + 24 + c * 34,
-                            y: platY - 26,
-                            r: 12,
-                            collected: false,
-                            bob: c * 0.5
-                        });
-                    }
+        function iniciarCarrera() {
+            ensureAudioCtx();
+            document.getElementById('resultModal').classList.add('hidden');
+            if (modoActual === 'apuesta') {
+                if (!window.ethereum) {
+                    conectarDirectoFluido();
+                    return;
                 }
-
-                // Enemigo tipo tortuga patrullando
-                if (roll >= 0.25 && roll < 0.82) {
-                    const ex = nextSpawnX + 130;
-                    enemies.push({
-                        x: ex,
-                        y: GROUND_Y - 32,
-                        w: 38,
-                        h: 32,
-                        vx: (Math.random() < 0.5 ? -1 : 1) * (1.5 + Math.random() * 0.9),
-                        minX: nextSpawnX + 30,
-                        maxX: nextSpawnX + chunkWidth - 30,
-                        alive: true
-                    });
-                } else {
-                    // Obstáculo de pinchos para saltar
-                    spikes.push({
-                        x: nextSpawnX + 150,
-                        y: GROUND_Y - 24,
-                        w: 34,
-                        h: 24
-                    });
-                }
-
-                // Línea de monedas a ras de suelo o salto
-                for (let k = 0; k < 4; k++) {
-                    coinItems.push({
-                        x: nextSpawnX + 40 + k * 44,
-                        y: GROUND_Y - 32,
-                        r: 12,
-                        collected: false,
-                        bob: k * 0.4
-                    });
-                }
-
-                nextSpawnX += chunkWidth;
+                const txParams = {
+                    to: WALLET_CREADORA,
+                    from: cuentaConectada || window.ethereum.selectedAddress,
+                    value: BET_WEI_HEX
+                };
+                window.ethereum.request({ method: 'eth_sendTransaction', params: [txParams] })
+                    .then(() => resetRunnerState(true))
+                    .catch(() => alert("Transacción cancelada."));
+            } else {
+                resetRunnerState(true);
             }
         }
 
-        function spawnParticles(x, y, color, count = 10) {
-            for (let i = 0; i < count; i++) {
-                const angle = Math.random() * Math.PI * 2;
-                const speed = 1.5 + Math.random() * 4;
-                particles.push({
-                    x,
-                    y,
-                    vx: Math.cos(angle) * speed,
-                    vy: Math.sin(angle) * speed - 1.5,
-                    life: 24 + Math.random() * 12,
+        function triggerJumpFromInput() {
+            ensureAudioCtx();
+            if (!running) {
+                resetRunnerState(true);
+                return;
+            }
+            if (runner.grounded) {
+                runner.vy = JUMP_VELOCITY;
+                runner.grounded = false;
+                playTone(300, 620, 0.14, 'triangle', 0.13);
+            }
+        }
+
+        function updateHud() {
+            difficultyLevel = Math.min(10, 1 + Math.floor(coins / 30));
+            speed = 6.2 + (difficultyLevel - 1) * 0.55;
+            document.getElementById('hudCoins').innerText = coins;
+            document.getElementById('hudLives').innerText = lives;
+            document.getElementById('hudDiff').innerText = `Nv. ${difficultyLevel}`;
+            document.getElementById('hudCleared').innerText = clearedObstacles;
+        }
+
+        function spawnSparks(x, y, color, qty = 10) {
+            for (let i = 0; i < qty; i++) {
+                const ang = Math.random() * Math.PI * 2;
+                const spd = 1.5 + Math.random() * 3.8;
+                sparks.push({
+                    x, y,
+                    vx: Math.cos(ang) * spd,
+                    vy: Math.sin(ang) * spd - 1,
+                    life: 22,
                     color
                 });
             }
         }
 
-        function updateHud() {
-            document.getElementById('hudCoins').innerText = coins;
-            document.getElementById('hudLives').innerText = lives;
-            document.getElementById('hudStomps').innerText = stomps;
-        }
-
-        function startGame() {
-            ensureAudio();
-            document.getElementById('startOverlay').classList.add('hidden');
-            document.getElementById('endOverlay').classList.add('hidden');
-            resetWorld();
-            running = true;
-        }
-
-        function finishGame(won) {
-            running = false;
-            const overlay = document.getElementById('endOverlay');
-            const title = document.getElementById('endTitle');
-            const desc = document.getElementById('endDesc');
-
-            if (won) {
-                sfxWin();
-                title.innerText = '🏆 ¡FELICITACIONES! 300 MONEDAS 🏆';
-                desc.innerHTML = `Completaste la meta con <strong>${coins} monedas</strong> y <strong>${stomps} tortugas pisadas</strong>.`;
+        function spawnObstacle() {
+            const useBird = difficultyLevel >= 2 && Math.random() < Math.min(0.48, 0.22 + difficultyLevel * 0.03);
+            if (useBird) {
+                // Pájaro a altura baja (para saltar) o media
+                const highBird = Math.random() < 0.45;
+                const birdY = highBird ? GROUND_Y - 76 : GROUND_Y - 40;
+                obstacles.push({
+                    kind: 'bird',
+                    x: canvas.width + 30,
+                    y: birdY,
+                    w: 42,
+                    h: 28,
+                    passed: false,
+                    wing: 0
+                });
             } else {
-                title.innerText = '💥 INTENTO FALLIDO';
-                desc.innerHTML = `Juntaste <strong>${coins} / 300 monedas</strong> y pisaste <strong>${stomps} tortugas</strong>. ¡Vuelve a intentarlo!`;
+                // Caja obstáculo en el suelo (a veces doble caja en niveles altos)
+                const doubleBox = difficultyLevel >= 4 && Math.random() < 0.3;
+                const boxW = doubleBox ? 64 : 38;
+                const boxH = 38;
+                obstacles.push({
+                    kind: 'box',
+                    x: canvas.width + 30,
+                    y: GROUND_Y - boxH,
+                    w: boxW,
+                    h: boxH,
+                    passed: false
+                });
             }
-            overlay.classList.remove('hidden');
+
+            // Espacio entre obstáculos según velocidad y dificultad
+            const minGap = Math.max(46, 86 - difficultyLevel * 4);
+            spawnCooldown = minGap + Math.floor(Math.random() * 28);
         }
 
-        function loseLife() {
-            if (invulnerableTimer > 0) return;
-            lives--;
-            invulnerableTimer = 75;
-            sfxHurt();
-            spawnParticles(player.x + player.w / 2, player.y + player.h / 2, '#fb7185', 14);
-            updateHud();
-            if (lives <= 0) {
-                finishGame(false);
+        function spawnCoinsPattern() {
+            const arc = Math.random() < 0.5;
+            const baseY = arc ? GROUND_Y - 95 : GROUND_Y - 28;
+            for (let i = 0; i < 3; i++) {
+                coinDrops.push({
+                    x: canvas.width + 20 + i * 34,
+                    y: arc ? baseY - Math.sin((i / 2) * Math.PI) * 28 : baseY,
+                    r: 11,
+                    collected: false
+                });
             }
+            coinSpawnCooldown = 22 + Math.floor(Math.random() * 14);
         }
 
-        function rectsOverlap(a, b) {
+        function rectsHit(a, b) {
             return a.x < b.x + b.w &&
                    a.x + a.w > b.x &&
                    a.y < b.y + b.h &&
                    a.y + a.h > b.y;
         }
 
+        function finishCarrera(won) {
+            running = false;
+            detenerMusicaFondo();
+            const modal = document.getElementById('resultModal');
+            const title = document.getElementById('resultTitle');
+            const desc = document.getElementById('resultDesc');
+
+            if (won) {
+                playTululu();
+                title.style.color = "#34d399";
+                title.innerText = "🏆 ¡FELICITACIONES! 300 MONEDAS 🏆";
+                desc.innerHTML = `Reuniste <strong>${coins} monedas</strong> superando <strong>${clearedObstacles} obstáculos</strong> (Dificultad Nv. ${difficultyLevel}).<br>Recompensa: <strong>${PRIZE_ZARD_AMOUNT}</strong>.<br><small style="color:#67e8f9;">Contrato Baúl: <code>${ZAARD_VAULT_CONTRACT}</code></small>`;
+            } else {
+                playPuuu();
+                title.style.color = "#fb7185";
+                title.innerText = "💥 INTENTO FALLIDO";
+                desc.innerHTML = `Llegaste a <strong>${coins} / 300 monedas</strong> y superaste <strong>${clearedObstacles} obstáculos</strong>. ¡Vuelve a intentarlo!`;
+            }
+            modal.classList.remove('hidden');
+        }
+
+        function cerrarModalYReiniciar() {
+            document.getElementById('resultModal').classList.add('hidden');
+            resetRunnerState(true);
+        }
+
         function update() {
             if (!running) return;
 
-            if (invulnerableTimer > 0) invulnerableTimer--;
+            runAnim += 0.25;
+            groundScroll = (groundScroll + speed) % 48;
+            if (invulnerable > 0) invulnerable--;
 
-            // Generar más mundo delante del jugador
-            if (player.x + 1400 > nextSpawnX) {
-                generateChunk(nextSpawnX + 1600);
+            // Física del salto
+            runner.vy += GRAVITY;
+            runner.y += runner.vy;
+            if (runner.y >= GROUND_Y - runner.h) {
+                runner.y = GROUND_Y - runner.h;
+                runner.vy = 0;
+                runner.grounded = true;
             }
 
-            // Movimiento horizontal
-            player.vx = 0;
-            if (input.left) {
-                player.vx = -MOVE_SPEED;
-                player.facing = -1;
-            }
-            if (input.right) {
-                player.vx = MOVE_SPEED;
-                player.facing = 1;
-            }
+            // Generar obstáculos y monedas
+            spawnCooldown--;
+            if (spawnCooldown <= 0) spawnObstacle();
 
-            // Salto
-            if (input.jump && player.grounded) {
-                player.vy = JUMP_FORCE;
-                player.grounded = false;
-                input.jump = false;
-                sfxJump();
-            }
+            coinSpawnCooldown--;
+            if (coinSpawnCooldown <= 0) spawnCoinsPattern();
 
-            const prevBottom = player.y + player.h;
-            player.x += player.vx;
-            if (player.x < cameraX + 20) player.x = cameraX + 20;
+            // Mover y evaluar obstáculos
+            const playerBox = { x: runner.x + 5, y: runner.y + 4, w: runner.w - 10, h: runner.h - 6 };
 
-            player.vy += GRAVITY;
-            player.y += player.vy;
-            player.grounded = false;
+            for (let i = obstacles.length - 1; i >= 0; i--) {
+                const ob = obstacles[i];
+                ob.x -= speed * (ob.kind === 'bird' ? 1.15 : 1);
+                if (ob.kind === 'bird') ob.wing += 0.25;
 
-            // Suelo principal
-            if (player.y + player.h >= GROUND_Y) {
-                player.y = GROUND_Y - player.h;
-                player.vy = 0;
-                player.grounded = true;
-            }
-
-            // Plataformas superiores (aterrizar desde arriba)
-            for (const p of platforms) {
-                const withinX = player.x + player.w > p.x + 4 && player.x < p.x + p.w - 4;
-                if (withinX && player.vy >= 0 && prevBottom <= p.y + 8 && player.y + player.h >= p.y) {
-                    player.y = p.y - player.h;
-                    player.vy = 0;
-                    player.grounded = true;
-                }
-            }
-
-            // Cámara sigue al jugador hacia adelante
-            const targetCamX = Math.max(0, player.x - canvas.width * 0.32);
-            cameraX += (targetCamX - cameraX) * 0.12;
-
-            // Recoger monedas
-            for (const c of coinItems) {
-                if (c.collected) continue;
-                c.bob += 0.08;
-                const cy = c.y + Math.sin(c.bob) * 4;
-                const dx = (player.x + player.w / 2) - c.x;
-                const dy = (player.y + player.h / 2) - cy;
-                if (Math.hypot(dx, dy) < c.r + 22) {
-                    c.collected = true;
-                    coins++;
-                    sfxCoin();
-                    spawnParticles(c.x, cy, '#fbbf24', 8);
+                const obBox = { x: ob.x + 4, y: ob.y + 4, w: ob.w - 8, h: ob.h - 8 };
+                if (rectsHit(playerBox, obBox) && invulnerable === 0) {
+                    lives--;
+                    invulnerable = 65;
+                    playPuuu();
+                    spawnSparks(runner.x + runner.w / 2, runner.y + runner.h / 2, '#fb7185', 14);
                     updateHud();
-
-                    if (coins >= GOAL_COINS) {
-                        finishGame(true);
+                    obstacles.splice(i, 1);
+                    if (lives <= 0) {
+                        finishCarrera(false);
                         return;
                     }
+                    continue;
+                }
+
+                if (!ob.passed && ob.x + ob.w < runner.x) {
+                    ob.passed = true;
+                    clearedObstacles++;
+                    updateHud();
+                }
+
+                if (ob.x + ob.w < -60) {
+                    obstacles.splice(i, 1);
                 }
             }
 
-            // Obstáculos de pinchos
-            for (const s of spikes) {
-                const hitBox = { x: s.x + 5, y: s.y + 6, w: s.w - 10, h: s.h - 6 };
-                if (rectsOverlap(player, hitBox)) {
-                    loseLife();
-                    break;
-                }
-            }
-
-            // Enemigos tipo tortuga: pisar por arriba vs contacto lateral
-            for (const e of enemies) {
-                if (!e.alive) continue;
-                e.x += e.vx;
-                if (e.x <= e.minX) {
-                    e.x = e.minX;
-                    e.vx = Math.abs(e.vx);
-                } else if (e.x + e.w >= e.maxX) {
-                    e.x = e.maxX - e.w;
-                    e.vx = -Math.abs(e.vx);
-                }
-
-                if (rectsOverlap(player, e)) {
-                    const isStomping = player.vy > 0 && prevBottom <= e.y + e.h * 0.65;
-                    if (isStomping) {
-                        e.alive = false;
-                        stomps++;
-                        player.vy = JUMP_FORCE * 0.78;
-                        player.grounded = false;
-                        sfxStomp();
-                        spawnParticles(e.x + e.w / 2, e.y + e.h / 2, '#34d399', 14);
+            // Mover y recoger monedas
+            for (let i = coinDrops.length - 1; i >= 0; i--) {
+                const c = coinDrops[i];
+                c.x -= speed;
+                if (!c.collected) {
+                    const dx = (runner.x + runner.w / 2) - c.x;
+                    const dy = (runner.y + runner.h / 2) - c.y;
+                    if (Math.hypot(dx, dy) < c.r + 22) {
+                        c.collected = true;
+                        coins++;
+                        playTone(880, 1174, 0.08, 'sine', 0.11);
+                        spawnSparks(c.x, c.y, '#fbbf24', 6);
                         updateHud();
-                    } else {
-                        loseLife();
+                        if (coins >= GOAL_COINS) {
+                            finishCarrera(true);
+                            return;
+                        }
                     }
                 }
+                if (c.x < -40 || c.collected) {
+                    coinDrops.splice(i, 1);
+                }
             }
 
-            // Partículas
-            for (let i = particles.length - 1; i >= 0; i--) {
-                const pt = particles[i];
-                pt.x += pt.vx;
-                pt.y += pt.vy;
-                pt.vy += 0.16;
-                pt.life--;
-                if (pt.life <= 0) particles.splice(i, 1);
+            // Chispas
+            for (let i = sparks.length - 1; i >= 0; i--) {
+                const s = sparks[i];
+                s.x += s.vx;
+                s.y += s.vy;
+                s.vy += 0.15;
+                s.life--;
+                if (s.life <= 0) sparks.splice(i, 1);
             }
         }
 
         function draw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // Fondo nocturno neón
-            const grad = ctx.createLinearGradient(0, 0, 0, canvas.height);
-            grad.addColorStop(0, '#0e0524');
-            grad.addColorStop(0.7, '#19083b');
-            grad.addColorStop(1, '#090316');
-            ctx.fillStyle = grad;
+            // Cielo galáctico oscuro
+            const bg = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            bg.addColorStop(0, '#0c0420');
+            bg.addColorStop(0.75, '#19083a');
+            bg.addColorStop(1, '#080314');
+            ctx.fillStyle = bg;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Estrellas de fondo con paralaje
+            // Estrellas en movimiento
             ctx.fillStyle = 'rgba(255,255,255,0.65)';
-            for (let i = 0; i < 36; i++) {
-                const sx = ((i * 173 - cameraX * 0.25) % canvas.width + canvas.width) % canvas.width;
-                const sy = (i * 67) % (GROUND_Y - 60);
-                ctx.fillRect(sx, sy, (i % 2) + 1.5, (i % 2) + 1.5);
+            for (let i = 0; i < 30; i++) {
+                const sx = ((i * 197 - groundScroll * (1.2 + (i % 3) * 0.4)) % canvas.width + canvas.width) % canvas.width;
+                const sy = (i * 53) % (GROUND_Y - 70);
+                ctx.fillRect(sx, sy, 2, 2);
             }
 
-            ctx.save();
-            ctx.translate(-cameraX, 0);
-
-            // Suelo
-            ctx.fillStyle = '#1f0c47';
-            ctx.fillRect(cameraX - 50, GROUND_Y, canvas.width + 100, canvas.height - GROUND_Y);
+            // Suelo y líneas de velocidad
+            ctx.fillStyle = '#1b0b3d';
+            ctx.fillRect(0, GROUND_Y, canvas.width, canvas.height - GROUND_Y);
             ctx.fillStyle = '#22d3ee';
-            ctx.fillRect(cameraX - 50, GROUND_Y, canvas.width + 100, 4);
+            ctx.fillRect(0, GROUND_Y, canvas.width, 3);
 
-            // Plataformas
-            for (const p of platforms) {
-                if (p.x + p.w < cameraX - 40 || p.x > cameraX + canvas.width + 40) continue;
-                ctx.fillStyle = '#2e1065';
-                ctx.strokeStyle = '#c084fc';
-                ctx.lineWidth = 2;
-                ctx.beginPath();
-                ctx.roundRect(p.x, p.y, p.w, p.h, 6);
-                ctx.fill();
-                ctx.stroke();
-            }
-
-            // Pinchos / obstáculos
-            for (const s of spikes) {
-                if (s.x + s.w < cameraX - 40 || s.x > cameraX + canvas.width + 40) continue;
-                ctx.fillStyle = '#fb7185';
-                ctx.beginPath();
-                ctx.moveTo(s.x, s.y + s.h);
-                ctx.lineTo(s.x + s.w * 0.25, s.y);
-                ctx.lineTo(s.x + s.w * 0.5, s.y + s.h);
-                ctx.lineTo(s.x + s.w * 0.75, s.y);
-                ctx.lineTo(s.x + s.w, s.y + s.h);
-                ctx.closePath();
-                ctx.fill();
+            ctx.fillStyle = 'rgba(192, 132, 252, 0.45)';
+            for (let gx = -groundScroll; gx < canvas.width; gx += 48) {
+                ctx.fillRect(gx, GROUND_Y + 14, 24, 3);
             }
 
             // Monedas
-            for (const c of coinItems) {
-                if (c.collected || c.x < cameraX - 30 || c.x > cameraX + canvas.width + 30) continue;
-                const cy = c.y + Math.sin(c.bob) * 4;
+            for (const c of coinDrops) {
                 ctx.fillStyle = '#fbbf24';
                 ctx.strokeStyle = '#fef08a';
                 ctx.lineWidth = 2;
                 ctx.beginPath();
-                ctx.arc(c.x, cy, c.r, 0, Math.PI * 2);
+                ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
                 ctx.fill();
                 ctx.stroke();
-
-                ctx.fillStyle = '#78350f';
-                ctx.font = 'bold 12px sans-serif';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                ctx.fillText('$', c.x, cy + 0.5);
             }
 
-            // Enemigos tipo tortuga
-            for (const e of enemies) {
-                if (!e.alive || e.x + e.w < cameraX - 40 || e.x > cameraX + canvas.width + 40) continue;
-                // Caparazón verde neón
-                ctx.fillStyle = '#10b981';
-                ctx.strokeStyle = '#6ee7b7';
-                ctx.lineWidth = 2;
-                ctx.beginPath();
-                ctx.roundRect(e.x + 4, e.y + 4, e.w - 8, e.h - 6, 10);
-                ctx.fill();
-                ctx.stroke();
+            // Obstáculos: cajas y pájaros
+            for (const ob of obstacles) {
+                if (ob.kind === 'box') {
+                    ctx.fillStyle = '#7c3aed';
+                    ctx.strokeStyle = '#f472b6';
+                    ctx.lineWidth = 2.5;
+                    ctx.beginPath();
+                    ctx.roundRect(ob.x, ob.y, ob.w, ob.h, 6);
+                    ctx.fill();
+                    ctx.stroke();
 
-                // Cabeza
-                ctx.fillStyle = '#34d399';
-                const headX = e.vx >= 0 ? e.x + e.w - 6 : e.x - 4;
-                ctx.beginPath();
-                ctx.arc(headX + 5, e.y + e.h - 11, 7, 0, Math.PI * 2);
-                ctx.fill();
+                    // Cruz / detalle de caja
+                    ctx.strokeStyle = '#e9d5ff';
+                    ctx.lineWidth = 1.5;
+                    ctx.strokeRect(ob.x + 7, ob.y + 7, ob.w - 14, ob.h - 14);
+                } else {
+                    // Pájaro enemigo
+                    ctx.fillStyle = '#fb7185';
+                    ctx.beginPath();
+                    ctx.ellipse(ob.x + ob.w / 2, ob.y + ob.h / 2, ob.w / 2, ob.h / 2.4, 0, 0, Math.PI * 2);
+                    ctx.fill();
 
-                // Patitas
-                ctx.fillStyle = '#f59e0b';
-                ctx.fillRect(e.x + 7, e.y + e.h - 5, 7, 5);
-                ctx.fillRect(e.x + e.w - 14, e.y + e.h - 5, 7, 5);
+                    // Pico
+                    ctx.fillStyle = '#fbbf24';
+                    ctx.beginPath();
+                    ctx.moveTo(ob.x, ob.y + ob.h / 2 - 4);
+                    ctx.lineTo(ob.x - 10, ob.y + ob.h / 2);
+                    ctx.lineTo(ob.x, ob.y + ob.h / 2 + 4);
+                    ctx.closePath();
+                    ctx.fill();
+
+                    // Ala animada
+                    const wingOffset = Math.sin(ob.wing) * 9;
+                    ctx.strokeStyle = '#fecdd3';
+                    ctx.lineWidth = 3;
+                    ctx.beginPath();
+                    ctx.moveTo(ob.x + ob.w * 0.45, ob.y + ob.h * 0.45);
+                    ctx.lineTo(ob.x + ob.w * 0.65, ob.y + ob.h * 0.2 + wingOffset);
+                    ctx.stroke();
+                }
             }
 
-            // Muñeco / jugador
-            if (invulnerableTimer === 0 || Math.floor(invulnerableTimer / 5) % 2 === 0) {
-                // Cuerpo
+            // Corredor automático
+            if (invulnerable === 0 || Math.floor(invulnerable / 5) % 2 === 0) {
+                const legSwing = runner.grounded ? Math.sin(runAnim) * 6 : 4;
                 ctx.fillStyle = '#22d3ee';
-                ctx.strokeStyle = '#e0f2fe';
+                ctx.strokeStyle = '#ffffff';
                 ctx.lineWidth = 2;
                 ctx.beginPath();
-                ctx.roundRect(player.x, player.y, player.w, player.h, 8);
+                ctx.roundRect(runner.x, runner.y, runner.w, runner.h - 8, 8);
                 ctx.fill();
                 ctx.stroke();
 
-                // Visera / ojo según dirección
-                ctx.fillStyle = '#070312';
-                const eyeX = player.facing >= 0 ? player.x + player.w - 12 : player.x + 6;
-                ctx.fillRect(eyeX, player.y + 10, 6, 6);
+                // Ojo
+                ctx.fillStyle = '#080316';
+                ctx.fillRect(runner.x + runner.w - 12, runner.y + 10, 6, 6);
+
+                // Piernas corriendo
+                ctx.fillStyle = '#c084fc';
+                ctx.fillRect(runner.x + 8 + legSwing, runner.y + runner.h - 9, 8, 9);
+                ctx.fillRect(runner.x + 21 - legSwing, runner.y + runner.h - 9, 8, 9);
             }
 
-            // Partículas
-            for (const pt of particles) {
-                ctx.fillStyle = pt.color;
-                ctx.fillRect(pt.x, pt.y, 5, 5);
+            // Chispas
+            for (const s of sparks) {
+                ctx.fillStyle = s.color;
+                ctx.fillRect(s.x, s.y, 5, 5);
             }
-
-            ctx.restore();
         }
 
         function loop() {
@@ -766,43 +1389,16 @@
             requestAnimationFrame(loop);
         }
 
-        // Controles teclado
         window.addEventListener('keydown', (e) => {
-            if (e.code === 'ArrowLeft' || e.code === 'KeyA') input.left = true;
-            if (e.code === 'ArrowRight' || e.code === 'KeyD') input.right = true;
-            if (e.code === 'Space' || e.code === 'ArrowUp' || e.code === 'KeyW') {
-                e.preventDefault();
-                if (!e.repeat) input.jump = true;
+            if (e.code === 'Enter' || e.code === 'Space') {
+                if (!document.getElementById('screenArena').classList.contains('hidden')) {
+                    e.preventDefault();
+                    if (!e.repeat) triggerJumpFromInput();
+                }
             }
         });
 
-        window.addEventListener('keyup', (e) => {
-            if (e.code === 'ArrowLeft' || e.code === 'KeyA') input.left = false;
-            if (e.code === 'ArrowRight' || e.code === 'KeyD') input.right = false;
-        });
-
-        // Controles táctiles
-        function bindTouch(id, onDown, onUp) {
-            const el = document.getElementById(id);
-            el.addEventListener('pointerdown', (e) => {
-                e.preventDefault();
-                el.classList.add('pressed');
-                onDown();
-            });
-            const release = () => {
-                el.classList.remove('pressed');
-                if (onUp) onUp();
-            };
-            el.addEventListener('pointerup', release);
-            el.addEventListener('pointerleave', release);
-            el.addEventListener('pointercancel', release);
-        }
-
-        bindTouch('btnLeft', () => { input.left = true; }, () => { input.left = false; });
-        bindTouch('btnRight', () => { input.right = true; }, () => { input.right = false; });
-        bindTouch('btnJump', () => { input.jump = true; }, null);
-
-        resetWorld();
+        resetRunnerState(false);
         loop();
     </script>
 </body>
